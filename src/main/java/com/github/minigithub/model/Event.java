@@ -34,6 +34,9 @@ public class Event implements Serializable {
 	@ManyToOne()
 	public Task task;
 
+	public Event() {
+	}
+
 	public Event(Long id, Date dateTime, Task task) {
 		this.id = id;
 		this.dateTime = dateTime;

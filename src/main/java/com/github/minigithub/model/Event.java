@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.github.minigithub.dto.EventDTO;
-import com.github.minigithub.dto.TaskDTO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

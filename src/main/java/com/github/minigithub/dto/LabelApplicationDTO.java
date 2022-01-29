@@ -1,12 +1,11 @@
 package com.github.minigithub.dto;
 
-import java.io.Serializable;
 import java.util.*;
 
 import com.github.minigithub.model.Label;
 import com.github.minigithub.model.LabelApplication;
 
-public class LabelApplicationDTO extends EventDTO implements Serializable {
+public class LabelApplicationDTO extends EventDTO {
 
     public Collection<LabelDTO> labels;
 

@@ -1,11 +1,10 @@
 package com.github.minigithub.dto;
 
-import java.io.Serializable;
 import java.util.*;
 
 import com.github.minigithub.model.Comment;
 
-public class CommentDTO extends EventDTO implements Serializable {
+public class CommentDTO extends EventDTO {
 
     private Date dateCreated;
 

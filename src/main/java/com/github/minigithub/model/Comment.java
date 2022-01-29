@@ -1,6 +1,5 @@
 package com.github.minigithub.model;
 
-import java.io.Serializable;
 import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,7 @@ import com.github.minigithub.dto.CommentDTO;
 
 @Entity
 @Table(name = "comments")
-public class Comment extends Event implements Serializable {
+public class Comment extends Event {
 
    @Column(name = "dateCreated", unique = false, nullable = false)
    private Date dateCreated;

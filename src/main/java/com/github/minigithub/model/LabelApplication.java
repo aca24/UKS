@@ -7,7 +7,6 @@ import javax.persistence.Table;
 import com.github.minigithub.dto.LabelApplicationDTO;
 import com.github.minigithub.dto.LabelDTO;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.Iterator;
 
 @Entity
 @Table(name = "labelApplications")
-public class LabelApplication extends Event implements Serializable {
+public class LabelApplication extends Event {
 
    @OneToMany(mappedBy = "labelApplication")
    public Collection<Label> labels;

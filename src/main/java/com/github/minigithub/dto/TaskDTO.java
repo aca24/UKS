@@ -6,8 +6,8 @@ import com.github.minigithub.model.*;
 
 public class TaskDTO {
     private Long id;
-    private Collection<Event> events;
-    private Milestone milestone;
+    private Collection<EventDTO> events;
+    private MilestoneDTO milestone;
     private User creator;
 
     public TaskDTO(){
@@ -22,19 +22,19 @@ public class TaskDTO {
 		this.id = id;
 	}
 
-    public Collection<Event> getEvents() {
+    public Collection<EventDTO> getEvents() {
 		return events;
 	}
 
-	public void setEvents(Collection<Event> events) {
+	public void setEvents(Collection<EventDTO> events) {
 		this.events = events;
 	}
 
-    public Milestone getMilestone() {
+    public MilestoneDTO getMilestone() {
 		return milestone;
 	}
 
-	public void setMilestone(Milestone milestone) {
+	public void setMilestone(MilestoneDTO milestone) {
 		this.milestone = milestone;
 	}
 

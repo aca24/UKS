@@ -32,4 +32,33 @@ public class Label implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public LabelApplication getLabelApplication() {
+		return labelApplication;
+	}
+
+	public void setLabelApplication(LabelApplication labelApplication) {
+		this.labelApplication = labelApplication;
+	}
+
+	public Label(Long id, String name, LabelApplication labelApplication) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.labelApplication = labelApplication;
+	}
+
+	public Label() {
+		super();
+	}
+	
+	
 }

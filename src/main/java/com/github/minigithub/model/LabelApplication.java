@@ -4,8 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.github.minigithub.dto.LabelApplicationDTO;
+import com.github.minigithub.dto.LabelDTO;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -16,8 +21,25 @@ public class LabelApplication extends Event implements Serializable {
    @OneToMany(mappedBy = "labelApplication")
    public Collection<Label> labels;
 
-   public LabelApplication(Collection<Label> labels) {
-      super();
+   public LabelApplication() {
+   }
+
+   public LabelApplication(Long id, Date dateTime, Task task) {
+      super(id, dateTime, task);
+   }
+
+   public LabelApplication(Long id, Date dateTime, Task task, Collection<Label> labels) {
+      super(id, dateTime, task);
+      this.labels = labels;
+   }
+
+   public LabelApplication(LabelApplicationDTO labelApplication) {
+      super(labelApplication.getId(), labelApplication.getDateTime(), new Task(labelApplication.getTask()));
+
+      Collection<Label> labels = new ArrayList<Label>();
+      for (LabelDTO label : labelApplication.getLabels()) {
+         labels.add(new Label(label));
+      }
       this.labels = labels;
    }
 

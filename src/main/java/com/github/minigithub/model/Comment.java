@@ -18,6 +18,9 @@ public class Comment extends Event implements Serializable {
    @Column(name = "content", unique = false, nullable = false)
    private String content;
 
+   public Comment() {
+   }
+
    public Comment(Long id, Date dateTime, Task task) {
       super(id, dateTime, task);
    }

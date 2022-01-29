@@ -3,20 +3,15 @@ package com.github.minigithub.model;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
-import javax.persistence.InheritanceType;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 

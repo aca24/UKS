@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
 
@@ -29,8 +30,9 @@ public class Commit implements Serializable {
    @Column(name = "hash", unique = true, nullable = false)
    private String hash;
 
-   @Column(name = "user", unique = false, nullable = false)
-   public User user;
+   @ManyToOne
+   @JoinColumn(name = "user_id", nullable = false, unique = false)
+   public User commiter;
 
    @ManyToOne()
    public Branch branch;
@@ -43,21 +45,24 @@ public class Commit implements Serializable {
       this.id = id;
    }
 
-   public User getUser() {
-      return user;
-   }
+   public User getCommiter() {
+	   return commiter;
+}
 
-   public void setUser(User newUser) {
-      if (this.user == null || !this.user.equals(newUser)) {
-         if (this.user != null) {
-            User oldUser = this.user;
-            this.user = null;
+   public void setCommiter(User newCommiter) {
+	   if (this.commiter == null || !this.commiter.equals(newCommiter)) {
+         if (this.commiter != null) {
+            User oldUser = this.commiter;
+            this.commiter = null;
             oldUser.removeCommit(this);
          }
-         if (newUser != null) {
-            this.user = newUser;
-            this.user.addCommit(this);
+         if (newCommiter != null) {
+            this.commiter = newCommiter;
+            this.commiter.addCommit(this);
          }
       }
-   }
+	   this.commiter = commiter;
+}
+   
+
 }

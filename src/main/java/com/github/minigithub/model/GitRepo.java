@@ -27,7 +27,8 @@ public class GitRepo implements Serializable {
    @Column(name = "name", unique = false, nullable = false)
    private String name;
 
-   @OneToMany(mappedBy = "gitRepo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  // @OneToMany(mappedBy = "gitRepo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany()
    public Collection<Branch> branches;
 
    @OneToMany()

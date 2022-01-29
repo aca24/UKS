@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +13,7 @@ import javax.persistence.Table;
 public class StateChange extends Event implements Serializable {
 
    @Column(name = "newState", unique = false, nullable = false)
+   @Enumerated(EnumType.STRING)
    private State newState;
 
    public StateChange(State newState) {

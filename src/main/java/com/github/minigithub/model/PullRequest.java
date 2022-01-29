@@ -24,7 +24,7 @@ public class PullRequest extends Task implements Serializable {
    private String name;
 
    @ManyToMany()
-   @JoinTable(name = "issues_pullRequests", joinColumns = @JoinColumn(name = "pullRequest_id"), inverseJoinColumns = @JoinColumn(name = "issue_id"))
+   @JoinTable(name = "issues_pull_requests", joinColumns = @JoinColumn(name = "pull_request_id"), inverseJoinColumns = @JoinColumn(name = "issue_id"))
    public Collection<Issue> issues;
 
    @ManyToOne()

@@ -2,9 +2,11 @@ package com.github.minigithub.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import lombok.EqualsAndHashCode;
 
@@ -19,6 +21,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
@@ -27,7 +31,8 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 public class Task implements Serializable {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.TABLE)
+   @GeneratedValue(strategy = GenerationType.TABLE, generator = "ConfirmationCodeGeneratorTwo")
+   @TableGenerator(table = "SEQUENCES_TASK", name = "ConfirmationCodeGeneratorTwo")
    private Long id;
 
    @OneToMany(mappedBy = "task")
@@ -36,10 +41,19 @@ public class Task implements Serializable {
    @ManyToOne()
    public Milestone milestone;
 
-   @Column(name = "user", unique = false, nullable = false)
-   public User user;
+   @ManyToOne
+   @JoinColumn(name = "user_id", nullable = false, unique = false)
+   public User creator;
 
-   public Long getId() {
+   public User getCreator() {
+	   return creator;
+}
+
+   public void setCreator(User creator) {
+	   this.creator = creator;
+}
+
+public Long getId() {
       return id;
    }
 

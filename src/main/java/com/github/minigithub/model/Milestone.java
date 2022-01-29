@@ -6,6 +6,8 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,6 +37,7 @@ public class Milestone implements Serializable {
    private Date dueDate;
 
    @Column(name = "state", unique = false, nullable = false)
+   @Enumerated(EnumType.STRING)
    private State state;
 
    @OneToMany(mappedBy = "milestone")

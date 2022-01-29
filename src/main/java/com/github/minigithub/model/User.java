@@ -55,10 +55,10 @@ public class User implements UserDetails, Serializable {
    @ManyToMany(mappedBy = "developers", cascade = CascadeType.ALL)
    public Collection<Project> projects;
 
-   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+   @OneToMany( cascade = CascadeType.ALL)
    public Collection<Commit> commits;
 
-   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
 
    public Long getId() {
@@ -134,7 +134,7 @@ public class User implements UserDetails, Serializable {
          this.commits = new HashSet<Commit>();
       if (!this.commits.contains(newCommit)) {
          this.commits.add(newCommit);
-         newCommit.setUser(this);
+         newCommit.setCommiter(this);
       }
    }
 
@@ -144,7 +144,7 @@ public class User implements UserDetails, Serializable {
       if (this.commits != null)
          if (this.commits.contains(oldCommit)) {
             this.commits.remove(oldCommit);
-            oldCommit.setUser((User) null);
+            oldCommit.setCommiter((User) null);
          }
    }
 
@@ -154,7 +154,7 @@ public class User implements UserDetails, Serializable {
          for (Iterator iter = getIteratorCommit(); iter.hasNext();) {
             oldCommit = (Commit) iter.next();
             iter.remove();
-            oldCommit.setUser((User) null);
+            oldCommit.setCommiter((User) null);
          }
       }
    }

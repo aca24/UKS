@@ -3,8 +3,11 @@ package com.github.minigithub.model;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import lombok.EqualsAndHashCode;
 
@@ -21,9 +24,10 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 @Table(name="events")
 @Inheritance(strategy=TABLE_PER_CLASS)
 public class Event implements Serializable {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "ConfirmationCodeGeneratorOne")
+	@TableGenerator(table = "SEQUENCES_EVENT", name = "ConfirmationCodeGeneratorOne")
 	private Long id;
 
 	@Column(name = "dateTime", unique = false, nullable = false)

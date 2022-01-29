@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.github.minigithub.dto.LabelDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,6 +26,21 @@ public class Label implements Serializable {
 
 	@ManyToOne()
 	public LabelApplication labelApplication;
+
+	public Label() {
+	}
+
+	public Label(Long id, String name, LabelApplication labelApplication) {
+		this.id = id;
+		this.name = name;
+		this.labelApplication = labelApplication;
+	}
+
+	public Label(LabelDTO label) {
+		this.id = label.getId();
+		this.name = label.getName();
+		this.labelApplication = new LabelApplication(label.getLabelApplication());
+	}
 
 	public Long getId() {
 		return id;
@@ -48,17 +65,4 @@ public class Label implements Serializable {
 	public void setLabelApplication(LabelApplication labelApplication) {
 		this.labelApplication = labelApplication;
 	}
-
-	public Label(Long id, String name, LabelApplication labelApplication) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.labelApplication = labelApplication;
-	}
-
-	public Label() {
-		super();
-	}
-	
-	
 }

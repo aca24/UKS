@@ -1,13 +1,19 @@
 package com.github.minigithub.service;
 
-import com.github.minigithub.repository.StateChangeRepository;
+import java.util.List;
+import com.github.minigithub.model.StateChange;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface StateChangeService {
 
-@Service
-public class StateChangeService {
+    StateChange findOne(Long id);
 
-    @Autowired
-	private StateChangeRepository stateChangeRepository;
+    List<StateChange> findAll();
+
+    Page<StateChange> findAll(Pageable page);
+
+    StateChange save(StateChange stateChange);
+
+    void remove(Long id);
 }

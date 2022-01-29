@@ -1,28 +1,42 @@
 package com.github.minigithub.dto;
 
+import java.io.Serializable;
+import java.util.*;
+
 import com.github.minigithub.model.State;
+import com.github.minigithub.model.StateChange;
 
-public class StateChangeDTO {
-    private Long id;
-    private State newState;
+public class StateChangeDTO extends EventDTO implements Serializable {
 
-    public StateChangeDTO(){
+  private State newState;
 
-    }
+  public StateChangeDTO() {
 
-    public Long getId() {
-		return id;
-	}
+  }
 
-    public void setId(Long id) {
-		this.id = id;
-	}
+  public StateChangeDTO(Long id, Date dateTime, TaskDTO task) {
+    super(id, dateTime, task);
+  }
 
-    public State getNewState() {
-		return newState;
-    }
+  public StateChangeDTO(State newState) {
+    this.newState = newState;
+  }
 
-	public void setNewState(State state) {
-		this.newState = state;
-	}
+  public StateChangeDTO(Long id, Date dateTime, TaskDTO task, State newState) {
+    super(id, dateTime, task);
+    this.newState = newState;
+  }
+
+  public StateChangeDTO(StateChange stateChange) {
+    super(stateChange.getId(), stateChange.getDateTime(), stateChange.getTask());
+    this.newState = stateChange.getNewState();
+  }
+
+  public State getNewState() {
+    return newState;
+  }
+
+  public void setNewState(State state) {
+    this.newState = state;
+  }
 }

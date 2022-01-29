@@ -14,6 +14,10 @@ public class TaskDTO {
 
     }
 
+	public TaskDTO(Task task){
+    }
+
+
     public Long getId() {
 		return id;
 	}

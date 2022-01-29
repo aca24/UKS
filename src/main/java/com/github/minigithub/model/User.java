@@ -29,7 +29,6 @@ import javax.persistence.InheritanceType;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type", discriminatorType= DiscriminatorType.STRING)
 public class User implements UserDetails, Serializable {
 
    @Id

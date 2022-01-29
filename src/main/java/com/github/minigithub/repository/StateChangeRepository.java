@@ -1,6 +1,5 @@
 package com.github.minigithub.repository;
 
-import com.github.minigithub.model.State;
 import com.github.minigithub.model.StateChange;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +10,4 @@ public interface StateChangeRepository extends JpaRepository<StateChange, Long> 
 
     StateChange findOneById(Long id);
 
-    StateChange findByState(State state);
 }

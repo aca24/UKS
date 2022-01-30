@@ -15,10 +15,10 @@ import com.github.minigithub.dto.UserDTO;
 
 import java.util.HashSet;
 import java.util.Iterator;
-/*
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-*/
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -32,7 +32,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User implements Serializable {
+public class User implements UserDetails, Serializable {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class User implements Serializable {
    @JoinColumn(name = "role_id")
    public Role role;
 
-   @ManyToMany(mappedBy = "developers", cascade = CascadeType.ALL)
+   @ManyToMany(mappedBy = "developers", cascade = CascadeType.DETACH)
    public Collection<Project> projects;
 
    @OneToMany(cascade = CascadeType.ALL)
@@ -63,12 +63,25 @@ public class User implements Serializable {
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
 
-   public User(UserDTO user){
+   public User(Long id, String username, String password, String firstName, String lastName) {
+      super();
+      this.id = id;
+      this.username = username;
+      this.password = password;
+      this.firstName = firstName;
+      this.lastName = lastName;
+   }
+
+   public User(UserDTO user) {
       this.id = user.getId();
       this.firstName = user.getFirstName();
       this.lastName = user.getLastName();
       this.username = user.getUsername();
       this.password = user.getPassword();
+   }
+
+   public User() {
+      super();
    }
 
    public Long getId() {
@@ -79,29 +92,20 @@ public class User implements Serializable {
       this.id = id;
    }
 
-   public void setUsername(String username) {
-      this.username = username;
-   }
-
-   public void setPassword(String password) {
-      this.password = password;
-   }
-
    public String getFirstName() {
-      return firstName;
-   }
+		return firstName;
+	}
 
-   public void setFirstName(String firstName) {
-      this.firstName = firstName;
-   }
+    public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+    public String getLastName() {
+		return lastName;
+	}
 
-   public String getLastName() {
-      return lastName;
-   }
-
-   public void setLastName(String lastName) {
-      this.lastName = lastName;
-   }
+    public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
    public Collection<Project> getProject() {
       if (projects == null)
@@ -239,24 +243,24 @@ public class User implements Serializable {
       return super.toString();
    }
 
-   /*@Override
+   @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
       return null;
-   }*/
+   }
 
-   
+   @Override
    public String getPassword() {
       // TODO Auto-generated method stub
       return null;
    }
 
-   
+   @Override
    public String getUsername() {
       // TODO Auto-generated method stub
       return null;
    }
-/*
+
    @Override
    public boolean isAccountNonExpired() {
       // TODO Auto-generated method stub
@@ -279,5 +283,5 @@ public class User implements Serializable {
    public boolean isEnabled() {
       // TODO Auto-generated method stub
       return false;
-   }*/
+   }
 }

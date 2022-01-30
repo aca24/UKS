@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.github.minigithub.dto.LabelDTO;
 import com.github.minigithub.mapper.LabelMapper;
 import com.github.minigithub.model.Label;
+import com.github.minigithub.repository.LabelApplicationRepository;
 import com.github.minigithub.repository.LabelRepository;
 
 @Service
@@ -16,6 +17,9 @@ public class LabelService {
 	
 	@Autowired
 	private LabelRepository labelRepository;
+	
+	@Autowired
+	private LabelApplicationRepository labelApplicationRepository;
 
 	public List<LabelDTO> findAll() {
 		List<Label> entities = labelRepository.findAll();
@@ -45,8 +49,7 @@ public class LabelService {
 	public LabelDTO create(LabelDTO label) {
 		Label newLabel = new Label();
 		newLabel.setName(label.getName());
-		// setuj labelapplication
-		//newLabel.setLabelApplication(label.getLabelApplication());
+		newLabel.setLabelApplication(labelApplicationRepository.findById(label.getLabelApplication().getId()).orElse(null));
 		
 		try {
 			newLabel = labelRepository.save(newLabel);
@@ -61,7 +64,8 @@ public class LabelService {
 	public LabelDTO update(LabelDTO label) {
 		Label existing = labelRepository.findById(label.getId()).orElse(null);
 		if(existing != null) {
-			//existing.setLabelApplication(label.getLabelApplication());
+			// dobavi labelApplication iz baze
+			existing.setLabelApplication(labelApplicationRepository.findById(label.getLabelApplication().getId()).orElse(null));
 			existing.setName(label.getName());
 			try {
 				existing = labelRepository.save(existing);

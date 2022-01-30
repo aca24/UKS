@@ -1,6 +1,9 @@
 INSERT INTO ROLES (name) VALUES ('ROLE_USER');
 
 INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('maca', 'maca', 'maca', 'maca', 1);
+
+
+=======
 INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('nestodrugo', 'nestodrugo', 'nestodrugo', 'nestodrugo', 1);
 
 INSERT INTO MILESTONES (id, description, due_date, state, title) VALUES (1, 'nesto', '2021-07-03', 'MERGED','nesto');

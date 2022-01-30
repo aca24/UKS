@@ -82,10 +82,7 @@ public class LabelApplicationController {
     public ResponseEntity<LabelApplicationDTO> saveLabelApplication(@RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication = new LabelApplication();
         try {
-            labelApplication.setCreationTime(LocalDateTime.now());
-            // labelApplication.setTask();
-            // labelApplication.setLabel();
-            labelApplicationService.save(labelApplication);
+            labelApplication = labelApplicationService.save(labelApplicationDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -94,8 +91,7 @@ public class LabelApplicationController {
     }
 
     @PutMapping(value = "update/{id}")
-    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id,
-            @RequestBody LabelApplicationDTO labelApplicationDTO) {
+    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id, @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication;
         try {
             labelApplication = labelApplicationService.findOne(id);
@@ -108,10 +104,7 @@ public class LabelApplicationController {
         }
 
         try {
-            labelApplication.setCreationTime(LocalDateTime.now());
-            // labelApplication.setTask();
-            // labelApplication.setLabel();
-            labelApplicationService.save(labelApplication);
+            labelApplication = labelApplicationService.save(labelApplicationDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

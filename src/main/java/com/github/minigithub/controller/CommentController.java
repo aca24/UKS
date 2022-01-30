@@ -82,10 +82,7 @@ public class CommentController {
     public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO) {
         Comment comment = new Comment();
         try {
-            comment.setContent(commentDTO.getContent());
-            comment.setCreationTime(LocalDateTime.now());
-            // comment.setTask();
-            commentService.save(comment);
+            comment = commentService.save(commentDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -107,10 +104,7 @@ public class CommentController {
         }
 
         try {
-            comment.setContent(commentDTO.getContent());
-            comment.setCreationTime(LocalDateTime.now());
-            // comment.setTask();
-            commentService.save(comment);
+            comment = commentService.save(commentDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

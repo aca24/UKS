@@ -79,12 +79,10 @@ public class EventController {
     }
 
     @PostMapping(value = "/save")
-    public ResponseEntity<EventDTO> saveEvent(@RequestBody EventDTO eventDTO) {
+    public ResponseEntity<EventDTO> saveEvent(@RequestBody EventDTO eventDTO) {  
         Event event = new Event();
         try {
-            event.setCreationTime(LocalDateTime.now());
-            // event.setTask();
-            eventService.save(event);
+            event = eventService.save(eventDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -106,9 +104,7 @@ public class EventController {
         }
 
         try {
-            event.setCreationTime(LocalDateTime.now());
-            // event.setTask();
-            eventService.save(event);
+            event = eventService.save(eventDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

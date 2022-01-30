@@ -1,7 +1,9 @@
 package com.github.minigithub.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.github.minigithub.dto.EventDTO;
 import com.github.minigithub.model.Event;
 import com.github.minigithub.repository.EventRepository;
 import com.github.minigithub.service.EventService;
@@ -33,8 +35,18 @@ public class EventServiceImplementation implements EventService {
         return eventRepository.findAll(page);
     }
 
-    public Event save(Event event) {
-        return eventRepository.save(event);
+    public Event save(EventDTO eventDTO) {
+        Event event = new Event();
+
+        try {
+            event.setCreationTime(LocalDateTime.now());
+            // event.setTask();
+            event = eventRepository.save(event);
+        } catch (Exception e) {
+            return null;
+        }
+
+        return event;
     }
 
     public void remove(Long id) {

@@ -1,38 +1,32 @@
 package com.github.minigithub.dto;
 
-import java.io.Serializable;
-import java.util.*;
+import java.time.LocalDateTime;
 
-public class CommentDTO extends EventDTO implements Serializable {
-    
-    private Date dateCreated;
+import com.github.minigithub.model.Comment;
+
+public class CommentDTO extends EventDTO {
 
     private String content;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(Long id, Date dateTime) {
-        super(id, dateTime);
+    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task) {
+        super(id, creationTime, task);
     }
 
-    public CommentDTO(Date dateCreated, String content) {
-        this.dateCreated = dateCreated;
+    public CommentDTO(String content) {
         this.content = content;
     }
 
-    public CommentDTO(Long id, Date dateTime, Date dateCreated, String content) {
-        super(id, dateTime);
-        this.dateCreated = dateCreated;
+    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task, String content) {
+        super(id, creationTime, task);
         this.content = content;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public CommentDTO(Comment comment) {
+        super(comment.getId(), comment.getCreationTime(), comment.getTask());
+        this.content = comment.getContent();
     }
 
     public String getContent() {

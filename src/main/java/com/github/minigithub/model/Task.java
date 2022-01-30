@@ -8,9 +8,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.github.minigithub.dto.EventDTO;
+import com.github.minigithub.dto.TaskDTO;
+
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,8 +30,8 @@ import javax.persistence.JoinColumn;
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
-@Table(name="tasks")
-@Inheritance(strategy=TABLE_PER_CLASS)
+@Table(name = "tasks")
+@Inheritance(strategy = TABLE_PER_CLASS)
 public class Task implements Serializable {
 
    @Id
@@ -45,15 +49,36 @@ public class Task implements Serializable {
    @JoinColumn(name = "user_id", nullable = false, unique = false)
    public User creator;
 
+   public Task() {
+   }
+
+   public Task(Long id, Collection<Event> events, Milestone milestone, User creator) {
+      this.id = id;
+      this.events = events;
+      this.milestone = milestone;
+      this.creator = creator;
+   }
+
+   public Task(TaskDTO task) {
+      this.id = task.getId();
+
+      Collection<Event> events = new ArrayList<Event>();
+      for (EventDTO event : task.getEvents()) {
+         events.add(new Event(event));
+      }
+      this.events = events;
+      this.creator = task.getCreator();
+   }
+
    public User getCreator() {
-	   return creator;
-}
+      return creator;
+   }
 
    public void setCreator(User creator) {
-	   this.creator = creator;
-}
+      this.creator = creator;
+   }
 
-public Long getId() {
+   public Long getId() {
       return id;
    }
 

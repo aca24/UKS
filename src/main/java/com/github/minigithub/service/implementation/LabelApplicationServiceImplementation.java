@@ -1,7 +1,9 @@
 package com.github.minigithub.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.github.minigithub.dto.LabelApplicationDTO;
 import com.github.minigithub.model.LabelApplication;
 import com.github.minigithub.repository.LabelApplicationRepository;
 import com.github.minigithub.service.LabelApplicationService;
@@ -33,8 +35,19 @@ public class LabelApplicationServiceImplementation implements LabelApplicationSe
         return labelApplicationRepository.findAll(page);
     }
 
-    public LabelApplication save(LabelApplication labelApplication) {
-        return labelApplicationRepository.save(labelApplication);
+    public LabelApplication save(LabelApplicationDTO labelApplicationDTO) {
+        LabelApplication labelApplication = new LabelApplication();
+
+        try {
+            labelApplication.setCreationTime(LocalDateTime.now());
+            // labelApplication.setTask();
+            // labelApplication.setLabel();
+            labelApplication = labelApplicationRepository.save(labelApplication);
+        } catch (Exception e) {
+            return null;
+        }
+
+        return labelApplication;
     }
 
     public void remove(Long id) {

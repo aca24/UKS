@@ -1,7 +1,9 @@
 package com.github.minigithub.service.implementation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.github.minigithub.dto.CommentDTO;
 import com.github.minigithub.model.Comment;
 import com.github.minigithub.repository.CommentRepository;
 import com.github.minigithub.service.CommentService;
@@ -33,8 +35,19 @@ public class CommentServiceImplementation implements CommentService {
         return commentRepository.findAll(page);
     }
 
-    public Comment save(Comment comment) {
-        return commentRepository.save(comment);
+    public Comment save(CommentDTO commentDTO) {
+        Comment comment = new Comment();
+
+        try {
+            comment.setContent(commentDTO.getContent());
+            comment.setCreationTime(LocalDateTime.now());
+            // comment.setTask();
+            comment = commentRepository.save(comment);
+        } catch (Exception e) {
+            return null;
+        }
+
+        return comment;
     }
 
     public void remove(Long id) {

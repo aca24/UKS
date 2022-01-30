@@ -15,10 +15,10 @@ import com.github.minigithub.dto.UserDTO;
 
 import java.util.HashSet;
 import java.util.Iterator;
-
+/*
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+*/
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -32,7 +32,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User implements UserDetails, Serializable {
+public class User implements Serializable {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -239,24 +239,24 @@ public class User implements UserDetails, Serializable {
       return super.toString();
    }
 
-   @Override
+   /*@Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
       return null;
-   }
+   }*/
 
-   @Override
+   
    public String getPassword() {
       // TODO Auto-generated method stub
       return null;
    }
 
-   @Override
+   
    public String getUsername() {
       // TODO Auto-generated method stub
       return null;
    }
-
+/*
    @Override
    public boolean isAccountNonExpired() {
       // TODO Auto-generated method stub
@@ -279,5 +279,5 @@ public class User implements UserDetails, Serializable {
    public boolean isEnabled() {
       // TODO Auto-generated method stub
       return false;
-   }
+   }*/
 }

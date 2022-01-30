@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +31,7 @@ public class CommitController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<CommitDTO> findById(Long id) {
         Optional<Commit> commit = commitService.findById(id);
         if (commit.isEmpty()) {
@@ -37,6 +40,7 @@ public class CommitController {
         return new ResponseEntity<CommitDTO>(new CommitDTO(commit.get()), HttpStatus.OK);
     }
 
+    @GetMapping("/hash/{hash}")
     public ResponseEntity<CommitDTO> findByHash(String hash) {
         Optional<Commit> commit = commitService.findByHash(hash);
         if (commit.isEmpty()) {
@@ -45,7 +49,8 @@ public class CommitController {
         return new ResponseEntity<CommitDTO>(new CommitDTO(commit.get()), HttpStatus.OK);
     }
 
-    public ResponseEntity<CommitDTO> insert(CommitDTO commitDTO) {
+    @PostMapping
+    public ResponseEntity<CommitDTO> insert(@RequestBody CommitDTO commitDTO) {
         Commit commit;
         try {
             commit = commitService.insert(commitDTO);

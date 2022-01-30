@@ -45,4 +45,16 @@ public class BranchService {
 
         return branchDTO;
     }
+
+    public boolean delete(Long id) {
+        Optional<Branch> branchOrEmpty = findById(id);
+
+        if (branchOrEmpty.isEmpty()) {
+            return false;
+        }
+
+        branchRepository.delete(branchOrEmpty.get());
+
+        return true;
+    }
 }

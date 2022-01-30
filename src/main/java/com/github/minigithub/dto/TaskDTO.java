@@ -8,7 +8,7 @@ public class TaskDTO {
     private Long id;
     private Collection<EventDTO> events;
     private MilestoneDTO milestone;
-    private User creator;
+    private UserDTO creator;
 
     public TaskDTO(){
 
@@ -38,12 +38,14 @@ public class TaskDTO {
 		this.milestone = milestone;
 	}
 
-    public User getCreator() {
+	public UserDTO getCreator() {
 		return creator;
 	}
 
-	public void setCreator(User creator) {
+	public void setCreator(UserDTO creator) {
 		this.creator = creator;
 	}
+
+   
 
 }

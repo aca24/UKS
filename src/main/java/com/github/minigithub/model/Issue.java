@@ -16,6 +16,11 @@ import javax.persistence.Table;
 @Table(name = "issues")
 public class Issue extends Task implements Serializable {
 
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -220503578596097473L;
+
    @Column(name = "title", unique = false, nullable = false)
    private String title;
 

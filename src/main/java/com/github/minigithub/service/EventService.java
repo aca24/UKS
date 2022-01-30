@@ -2,6 +2,7 @@ package com.github.minigithub.service;
 
 import java.util.List;
 
+import com.github.minigithub.dto.EventDTO;
 import com.github.minigithub.model.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ public interface EventService {
 
     Page<Event> findAll(Pageable page);
 
-    Event save(Event event);
+    Event save(EventDTO event);
 
     void remove(Long id);
 }

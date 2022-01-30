@@ -7,16 +7,15 @@ import javax.persistence.Table;
 import com.github.minigithub.dto.LabelApplicationDTO;
 import com.github.minigithub.dto.LabelDTO;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
 @Entity
 @Table(name = "labelApplications")
-public class LabelApplication extends Event implements Serializable {
+public class LabelApplication extends Event {
 
    @OneToMany(mappedBy = "labelApplication")
    public Collection<Label> labels;
@@ -24,17 +23,17 @@ public class LabelApplication extends Event implements Serializable {
    public LabelApplication() {
    }
 
-   public LabelApplication(Long id, Date dateTime, Task task) {
-      super(id, dateTime, task);
+   public LabelApplication(Long id, LocalDateTime creationTime, Task task) {
+      super(id, creationTime, task);
    }
 
-   public LabelApplication(Long id, Date dateTime, Task task, Collection<Label> labels) {
-      super(id, dateTime, task);
+   public LabelApplication(Long id, LocalDateTime creationTime, Task task, Collection<Label> labels) {
+      super(id, creationTime, task);
       this.labels = labels;
    }
 
    public LabelApplication(LabelApplicationDTO labelApplication) {
-      super(labelApplication.getId(), labelApplication.getDateTime(), new Task(labelApplication.getTask()));
+      super(labelApplication.getId(), labelApplication.getCreationTime(), new Task(labelApplication.getTask()));
 
       Collection<Label> labels = new ArrayList<Label>();
       for (LabelDTO label : labelApplication.getLabels()) {

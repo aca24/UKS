@@ -1,6 +1,8 @@
 package com.github.minigithub.service;
 
 import java.util.List;
+
+import com.github.minigithub.dto.CommentDTO;
 import com.github.minigithub.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +15,7 @@ public interface CommentService {
 
     Page<Comment> findAll(Pageable page);
 
-    Comment save(Comment comment);
+    Comment save(CommentDTO comment);
 
     void remove(Long id);
 }

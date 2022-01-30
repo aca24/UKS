@@ -1,6 +1,8 @@
 package com.github.minigithub.service;
 
 import java.util.List;
+
+import com.github.minigithub.dto.LabelApplicationDTO;
 import com.github.minigithub.model.LabelApplication;
 
 import org.springframework.data.domain.Page;
@@ -14,7 +16,7 @@ public interface LabelApplicationService {
 
     Page<LabelApplication> findAll(Pageable page);
 
-    LabelApplication save(LabelApplication labelApplication);
+    LabelApplication save(LabelApplicationDTO labelApplication);
 
     void remove(Long id);
 }

@@ -2,6 +2,7 @@ package com.github.minigithub.service.implementation;
 
 import java.util.List;
 
+import com.github.minigithub.dto.StateChangeDTO;
 import com.github.minigithub.model.StateChange;
 import com.github.minigithub.repository.StateChangeRepository;
 import com.github.minigithub.service.StateChangeService;
@@ -37,12 +38,36 @@ public class StateChangeServiceImplementation implements StateChangeService {
     }
 
     @Override
-    public StateChange save(StateChange stateChange) {
-        return stateChangeRepository.save(stateChange);
+    public StateChange save(StateChangeDTO stateChangeDTO) {
+        StateChange stateChange = new StateChange();
+
+        try {
+            stateChange.setCreationTime(stateChangeDTO.getCreationTime());
+            stateChange.setNewState(stateChangeDTO.getNewState());
+            stateChange = stateChangeRepository.save(stateChange);
+        } catch (Exception e) {
+            return null;
+        }
+        return stateChange;
     }
 
     @Override
     public void remove(Long id) {
         stateChangeRepository.deleteById(id);
+    }
+
+    @Override
+    public StateChange update(StateChangeDTO stateChangeDTO) throws Exception {
+        StateChange stateChange = new StateChange();
+        stateChange = stateChangeRepository.getById(stateChangeDTO.getId());
+
+        try {
+            stateChange.setCreationTime(stateChangeDTO.getCreationTime());
+            stateChange.setNewState(stateChangeDTO.getNewState());
+            stateChange = stateChangeRepository.save(stateChange);
+        } catch (Exception e) {
+            return null;
+        }
+        return stateChange;
     }
 }

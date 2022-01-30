@@ -51,7 +51,7 @@ public class User implements UserDetails, Serializable {
    @JoinColumn(name = "role_id")
    public Role role;
 
-   @ManyToMany(mappedBy = "developers", cascade = CascadeType.ALL)
+   @ManyToMany(mappedBy = "developers", cascade = CascadeType.DETACH)
    public Collection<Project> projects;
 
    @OneToMany( cascade = CascadeType.ALL)
@@ -60,7 +60,20 @@ public class User implements UserDetails, Serializable {
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
 
-   public Long getId() {
+   public User(Long id, String username, String password, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	public User() {
+		super();
+	}
+
+public Long getId() {
       return id;
    }
 

@@ -9,8 +9,25 @@ public class ProjectDTO {
 //	private GitRepoDTO giRepo;
 	private Collection<MilestoneDTO> milestones;
 	private Collection<LabelDTO> labesls;
-//	private Collection<UserDTO> developers;
-//	private UserDTO leader;
+	private Collection<UserDTO> developers;
+	private UserDTO leader;
+	
+	public Collection<UserDTO> getDevelopers() {
+		return developers;
+	}
+
+	public void setDevelopers(Collection<UserDTO> developers) {
+		this.developers = developers;
+	}
+
+	public UserDTO getLeader() {
+		return leader;
+	}
+
+	public void setLeader(UserDTO leader) {
+		this.leader = leader;
+	}
+
 	
 	public ProjectDTO() {
 		super();

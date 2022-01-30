@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -71,7 +72,7 @@ public class StateChangeController {
         return new ResponseEntity<>(StateChangeMapper.toDto(stateChange), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "update/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<StateChangeDTO> updateStateChange(@PathVariable Long id,
             @RequestBody StateChangeDTO stateChangeDTO) {
         StateChange stateChange;
@@ -94,7 +95,7 @@ public class StateChangeController {
         return new ResponseEntity<>(StateChangeMapper.toDto(stateChange), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteStateChange(@PathVariable Long id) {
         StateChange stateChange;
         try {

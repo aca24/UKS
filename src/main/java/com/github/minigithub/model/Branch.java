@@ -44,6 +44,14 @@ public class Branch implements Serializable {
       this.id = id;
    }
 
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
    public Collection<Commit> getCommit() {
       if (commits == null)
          commits = new HashSet<Commit>();

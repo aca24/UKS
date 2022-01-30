@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.github.minigithub.dto.CommitDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -45,24 +47,38 @@ public class Commit implements Serializable {
       this.id = id;
    }
 
+   public Date getDateTime() {
+      return dateTime;
+   }
+
+   public String getLogMessage() {
+      return logMessage;
+   }
+
+   public String getHash() {
+      return hash;
+   }
+
    public User getCommiter() {
-	   return commiter;
-}
+      return commiter;
+   }
 
    public void setCommiter(User newCommiter) {
-	   if (this.commiter == null || !this.commiter.equals(newCommiter)) {
-         if (this.commiter != null) {
-            User oldUser = this.commiter;
-            this.commiter = null;
-            oldUser.removeCommit(this);
-         }
-         if (newCommiter != null) {
-            this.commiter = newCommiter;
-            this.commiter.addCommit(this);
-         }
-      }
-	   this.commiter = commiter;
-}
-   
+      this.commiter = newCommiter;
+   }
+
+   public Branch getBranch() {
+      return branch;
+   }
+
+   public void setBranch(Branch branch) {
+      this.branch = branch;
+   }
+
+   public Commit(CommitDTO commitDTO) {
+      this.logMessage = commitDTO.getLogMessage();
+      this.hash = commitDTO.getHash();
+      this.dateTime = commitDTO.getDateTime();
+   }
 
 }

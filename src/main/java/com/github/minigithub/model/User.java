@@ -5,11 +5,12 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.minigithub.dto.UserDTO;
+
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -23,7 +24,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.InheritanceType;
 
 @Entity
@@ -54,7 +54,7 @@ public class User implements UserDetails, Serializable {
    @ManyToMany(mappedBy = "developers", cascade = CascadeType.DETACH)
    public Collection<Project> projects;
 
-   @OneToMany( cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
    public Collection<Commit> commits;
 
    @OneToMany(cascade = CascadeType.ALL)
@@ -79,6 +79,14 @@ public Long getId() {
 
    public void setId(Long id) {
       this.id = id;
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
    }
 
    public Collection<Project> getProject() {
@@ -209,6 +217,21 @@ public Long getId() {
    public void removeAllTask() {
       if (tasks != null)
          tasks.clear();
+   }
+
+   public Role getRole() {
+      return role;
+   }
+
+   public void setRole(Role role) {
+      this.role = role;
+   }
+
+   public User(UserDTO userDTO) {
+      this.firstName = userDTO.getFirstName();
+      this.lastName = userDTO.getLastName();
+      this.username = userDTO.getUsername();
+      this.password = userDTO.getPassword();
    }
 
    @Override

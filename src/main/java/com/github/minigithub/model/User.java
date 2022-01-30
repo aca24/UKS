@@ -243,20 +243,19 @@ public class User implements UserDetails, Serializable {
       return super.toString();
    }
 
-   @Override
-   public Collection<? extends GrantedAuthority> getAuthorities() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
    public String getPassword() {
       // TODO Auto-generated method stub
-      return null;
+      return password;
+   }
+
+   
+   public String getUsername() {
+      // TODO Auto-generated method stub
+      return username;
    }
 
    @Override
-   public String getUsername() {
+   public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
       return null;
    }

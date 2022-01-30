@@ -11,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.minigithub.dto.MilestoneDTO;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -42,6 +45,17 @@ public class Milestone implements Serializable {
 
    @OneToMany(mappedBy = "milestone")
    public Collection<Task> tasks;
+
+   public Milestone(){
+
+   }
+   
+   public Milestone(MilestoneDTO milestone) {
+		this.id = milestone.getId();
+		this.description = milestone.getDescription();
+		this.title = milestone.getTitle();
+		this.state = milestone.getState();
+	}
 
    public Long getId() {
       return id;

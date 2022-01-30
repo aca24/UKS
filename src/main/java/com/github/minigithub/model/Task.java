@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.github.minigithub.dto.EventDTO;
+import com.github.minigithub.dto.MilestoneDTO;
 import com.github.minigithub.dto.TaskDTO;
 import com.github.minigithub.dto.UserDTO;
 
@@ -62,12 +63,12 @@ public class Task implements Serializable {
 
    public Task(TaskDTO task) {
       this.id = task.getId();
-
-      Collection<Event> events = new ArrayList<Event>();
+      this.milestone = new Milestone(task.getMilestone());
+      /*Collection<Event> events = new ArrayList<Event>();
       for (EventDTO event : task.getEvents()) {
          events.add(new Event(event));
       }
-      this.events = events;
+      this.events = events;*/
       this.creator = new User(task.getCreator());
    }
 
@@ -86,6 +87,10 @@ public class Task implements Serializable {
    public void setId(Long id) {
       this.id = id;
    }
+   
+	public void setEvents(Collection<Event> events) {
+		this.events = events;
+	}
 
    public Collection<Event> getEvent() {
       if (events == null)

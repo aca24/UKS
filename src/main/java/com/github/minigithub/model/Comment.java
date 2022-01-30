@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 import com.github.minigithub.dto.CommentDTO;
 
@@ -11,37 +12,24 @@ import com.github.minigithub.dto.CommentDTO;
 @Table(name = "comments")
 public class Comment extends Event {
 
-   @Column(name = "dateCreated", unique = false, nullable = false)
-   private Date dateCreated;
-
    @Column(name = "content", unique = false, nullable = false)
    private String content;
 
    public Comment() {
    }
 
-   public Comment(Long id, Date dateTime, Task task) {
-      super(id, dateTime, task);
+   public Comment(Long id, LocalDateTime creationTime, Task task) {
+      super(id, creationTime, task);
    }
 
-   public Comment(Long id, Date dateTime, Task task, Date dateCreated, String content) {
-      super(id, dateTime, task);
-      this.dateCreated = dateCreated;
+   public Comment(Long id, LocalDateTime creationTime, Task task, String content) {
+      super(id, creationTime, task);
       this.content = content;
    }
 
    public Comment(CommentDTO comment) {
-      super(comment.getId(), comment.getDateTime(), new Task(comment.getTask()));
-      this.dateCreated = comment.getDateCreated();
+      super(comment.getId(), comment.getCreationTime(), new Task(comment.getTask()));
       this.content = comment.getContent();
-   }
-
-   public Date getDateCreated() {
-      return dateCreated;
-   }
-
-   public void setDateCreated(Date dateCreated) {
-      this.dateCreated = dateCreated;
    }
 
    public String getContent() {

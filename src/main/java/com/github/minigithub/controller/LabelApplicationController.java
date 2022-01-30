@@ -1,5 +1,6 @@
 package com.github.minigithub.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/labelApplication", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LabelApplicationController {
@@ -74,5 +76,46 @@ public class LabelApplicationController {
 
         labelApplicationService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<LabelApplicationDTO> saveLabelApplication(@RequestBody LabelApplicationDTO labelApplicationDTO) {
+        LabelApplication labelApplication = new LabelApplication();
+        try {
+            labelApplication.setCreationTime(LocalDateTime.now());
+            // labelApplication.setTask();
+            // labelApplication.setLabel();
+            labelApplicationService.save(labelApplication);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "update/{id}")
+    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id,
+            @RequestBody LabelApplicationDTO labelApplicationDTO) {
+        LabelApplication labelApplication;
+        try {
+            labelApplication = labelApplicationService.findOne(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (labelApplication == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            labelApplication.setCreationTime(LocalDateTime.now());
+            // labelApplication.setTask();
+            // labelApplication.setLabel();
+            labelApplicationService.save(labelApplication);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.OK);
     }
 }

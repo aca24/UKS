@@ -1,45 +1,32 @@
 package com.github.minigithub.dto;
 
-import java.util.*;
+import java.time.LocalDateTime;
 
 import com.github.minigithub.model.Comment;
 
 public class CommentDTO extends EventDTO {
-
-    private Date dateCreated;
 
     private String content;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(Long id, Date dateTime, TaskDTO task) {
-        super(id, dateTime, task);
+    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task) {
+        super(id, creationTime, task);
     }
 
-    public CommentDTO(Date dateCreated, String content) {
-        this.dateCreated = dateCreated;
+    public CommentDTO(String content) {
         this.content = content;
     }
 
-    public CommentDTO(Long id, Date dateTime, TaskDTO task, Date dateCreated, String content) {
-        super(id, dateTime, task);
-        this.dateCreated = dateCreated;
+    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task, String content) {
+        super(id, creationTime, task);
         this.content = content;
     }
 
     public CommentDTO(Comment comment) {
-        super(comment.getId(), comment.getDateTime(), comment.getTask());
-        this.dateCreated = comment.getDateCreated();
+        super(comment.getId(), comment.getCreationTime(), comment.getTask());
         this.content = comment.getContent();
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 
     public String getContent() {

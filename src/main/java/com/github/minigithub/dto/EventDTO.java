@@ -1,7 +1,7 @@
 package com.github.minigithub.dto;
 
 import java.io.Serializable;
-import java.util.*;
+import java.time.LocalDateTime;
 
 import com.github.minigithub.model.Event;
 import com.github.minigithub.model.Task;
@@ -10,28 +10,28 @@ public class EventDTO implements Serializable {
 
     private Long id;
 
-    private Date dateTime;
+    private LocalDateTime creationTime;
 
     public TaskDTO task;
 
     public EventDTO() {
     }
 
-    public EventDTO(Long id, Date dateTime, TaskDTO task) {
+    public EventDTO(Long id, LocalDateTime creationTime, TaskDTO task) {
         this.id = id;
-        this.dateTime = dateTime;
+        this.creationTime = creationTime;
         this.task = task;
     }
 
-    public EventDTO(Long id, Date dateTime, Task task) {
+    public EventDTO(Long id, LocalDateTime creationTime, Task task) {
         this.id = id;
-        this.dateTime = dateTime;
+        this.creationTime = creationTime;
         this.task = new TaskDTO(task);
     }
 
     public EventDTO(Event event) {
         this.id = event.getId();
-        this.dateTime = event.getDateTime();
+        this.creationTime = event.getCreationTime();
         this.task = new TaskDTO(event.getTask());
     }
 
@@ -43,12 +43,12 @@ public class EventDTO implements Serializable {
         this.id = id;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     public TaskDTO getTask() {

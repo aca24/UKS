@@ -1,7 +1,7 @@
 package com.github.minigithub.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,8 +27,8 @@ public class Event implements Serializable {
 	@TableGenerator(table = "SEQUENCES_EVENT", name = "ConfirmationCodeGeneratorOne")
 	private Long id;
 
-	@Column(name = "dateTime", unique = false, nullable = false)
-	private Date dateTime;
+	@Column(name = "creationTime", unique = false, nullable = false)
+	private LocalDateTime creationTime;
 
 	@ManyToOne()
 	public Task task;
@@ -36,15 +36,15 @@ public class Event implements Serializable {
 	public Event() {
 	}
 
-	public Event(Long id, Date dateTime, Task task) {
+	public Event(Long id, LocalDateTime creationTime, Task task) {
 		this.id = id;
-		this.dateTime = dateTime;
+		this.creationTime = creationTime;
 		this.task = task;
 	}
 
 	public Event(EventDTO event) {
 		this.id = event.getId();
-		this.dateTime = event.getDateTime();
+		this.creationTime = event.getCreationTime();
 		this.task = new Task(event.getTask());
 	}
 
@@ -56,12 +56,12 @@ public class Event implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDateTime() {
-		return dateTime;
+	public LocalDateTime getCreationTime() {
+		return creationTime;
 	}
 
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
+	public void setCreationTime(LocalDateTime creationTime) {
+		this.creationTime = creationTime;
 	}
 
 	public Task getTask() {

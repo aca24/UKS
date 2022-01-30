@@ -1,5 +1,7 @@
 package com.github.minigithub.dto;
 
+import com.github.minigithub.model.User;
+
 public class UserDTO {
     private Long id;
     private String username;
@@ -8,6 +10,14 @@ public class UserDTO {
     private String lastName;
 
     public UserDTO(){ 
+    }
+
+	public UserDTO(User user){
+		 this.id = user.getId();
+		 this.firstName = user.getFirstName();
+		 this.lastName = user.getLastName();
+		 this.username = user.getUsername();
+		 this.password = user.getPassword();
     }
 
     public Long getId() {

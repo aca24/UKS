@@ -2,6 +2,7 @@ package com.github.minigithub.model;
 
 import java.io.Serializable;
 import java.util.*;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public class Milestone implements Serializable {
    private String title;
 
    @Column(name = "dueDate", unique = false, nullable = false)
-   private Date dueDate;
+   private LocalDateTime dueDate;
 
    @Column(name = "state", unique = false, nullable = false)
    @Enumerated(EnumType.STRING)
@@ -51,6 +52,37 @@ public class Milestone implements Serializable {
       this.id = id;
    }
 
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public String getTitle() {
+      return title;
+   }
+
+   public void setTitle(String title) {
+      this.title = title;
+   }
+
+   public LocalDateTime getDueDate() {
+      return dueDate;
+   }
+
+   public void setDueDate(LocalDateTime dueDate) {
+      this.dueDate = dueDate;
+   }
+
+   public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
+	}
+   
    public Collection<Task> getTask() {
       if (tasks == null)
          tasks = new HashSet<Task>();

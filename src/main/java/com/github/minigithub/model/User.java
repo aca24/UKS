@@ -10,6 +10,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.minigithub.dto.UserDTO;
+
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -54,11 +57,19 @@ public class User implements UserDetails, Serializable {
    @ManyToMany(mappedBy = "developers", cascade = CascadeType.ALL)
    public Collection<Project> projects;
 
-   @OneToMany( cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
    public Collection<Commit> commits;
 
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
+
+   public User(UserDTO user){
+      this.id = user.getId();
+      this.firstName = user.getFirstName();
+      this.lastName = user.getLastName();
+      this.username = user.getUsername();
+      this.password = user.getPassword();
+   }
 
    public Long getId() {
       return id;
@@ -66,6 +77,30 @@ public class User implements UserDetails, Serializable {
 
    public void setId(Long id) {
       this.id = id;
+   }
+
+   public void setUsername(String username) {
+      this.username = username;
+   }
+
+   public void setPassword(String password) {
+      this.password = password;
+   }
+
+   public String getFirstName() {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
+
+   public String getLastName() {
+      return lastName;
+   }
+
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
    }
 
    public Collection<Project> getProject() {

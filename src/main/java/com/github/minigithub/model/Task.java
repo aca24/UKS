@@ -10,6 +10,7 @@ import javax.persistence.TableGenerator;
 
 import com.github.minigithub.dto.EventDTO;
 import com.github.minigithub.dto.TaskDTO;
+import com.github.minigithub.dto.UserDTO;
 
 import lombok.EqualsAndHashCode;
 
@@ -67,7 +68,7 @@ public class Task implements Serializable {
          events.add(new Event(event));
       }
       this.events = events;
-      this.creator = task.getCreator();
+      this.creator = new User(task.getCreator());
    }
 
    public User getCreator() {

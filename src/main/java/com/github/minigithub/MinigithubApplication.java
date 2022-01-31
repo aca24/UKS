@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MinigithubApplication {
 
-	public static void main(String[] args) {
+	public static void ma
+
+	in(String[] args) {
 		SpringApplication.run(MinigithubApplication.class, args);
 	}
 

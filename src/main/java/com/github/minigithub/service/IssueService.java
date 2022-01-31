@@ -30,7 +30,16 @@ public class IssueService {
 		} catch (Exception e) {
 			return null;
 		}
-        
+	}
+	 	
+	public Issue updateTitle(Issue entity, Long id) {
+		Issue existingIssue = issueRepo.findById(id).orElse(null);
+		if(existingIssue == null) 	return null; 
+		existingIssue.setTitle(entity.getTitle());
+		
+		return issueRepo.save(existingIssue);
+	}
+	        	
 
-}
+
 }

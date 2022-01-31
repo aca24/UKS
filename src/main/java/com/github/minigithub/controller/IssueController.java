@@ -70,6 +70,13 @@ public class IssueController {
 	}
 	
 	
+	 @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public ResponseEntity<IssueDTO> updatePullRequest(@RequestBody IssueDTO issueDTO, @PathVariable Long id){
+		 Issue issue = issueService.updateTitle(issueMapper.toEntity(issueDTO), id);
+		 if (issue == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		 return new ResponseEntity<>(issueMapper.toDto(issue), HttpStatus.OK);
+		 
+	 }
 	
 	
 	private List<IssueDTO> toIssueDTOList(List<Issue> list){

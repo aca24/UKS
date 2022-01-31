@@ -23,11 +23,11 @@ public class TaskDTO {
 
 	public TaskDTO(Task task) {
 		this.id = task.getId();
-		/*Collection<EventDTO> events = new ArrayList<EventDTO>();
+		Collection<EventDTO> events = new ArrayList<EventDTO>();
 		for (Event event : task.getEvent()) {
 			events.add(new EventDTO(event));
 		}
-		this.events = events;*/
+		this.events = events;
 		this.milestone = new MilestoneDTO(task.getMilestone());
 		this.creator = new UserDTO(task.getCreator());
 	}

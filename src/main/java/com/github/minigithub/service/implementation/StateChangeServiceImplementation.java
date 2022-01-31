@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.minigithub.dto.StateChangeDTO;
 import com.github.minigithub.model.StateChange;
+import com.github.minigithub.model.Task;
 import com.github.minigithub.repository.StateChangeRepository;
 import com.github.minigithub.service.StateChangeService;
 
@@ -44,6 +45,8 @@ public class StateChangeServiceImplementation implements StateChangeService {
         try {
             stateChange.setCreationTime(stateChangeDTO.getCreationTime());
             stateChange.setNewState(stateChangeDTO.getNewState());
+            Task task = new Task(stateChangeDTO.getTask());
+            stateChange.setTask(task);
             stateChange = stateChangeRepository.save(stateChange);
         } catch (Exception e) {
             return null;

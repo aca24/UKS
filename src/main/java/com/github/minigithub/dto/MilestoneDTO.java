@@ -1,10 +1,12 @@
 package com.github.minigithub.dto;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import com.github.minigithub.model.Milestone;
 import com.github.minigithub.model.State;
+import com.github.minigithub.model.Task;
 
 public class MilestoneDTO {
 
@@ -41,12 +43,12 @@ public class MilestoneDTO {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public Collection<TaskDTO> getTasks() {
 		return tasks;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public void setTasks(Collection<TaskDTO> tasks) {

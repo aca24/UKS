@@ -30,7 +30,7 @@ public class Event implements Serializable {
 	@Column(name = "creationTime", unique = false, nullable = false)
 	private LocalDateTime creationTime;
 
-	@ManyToOne()
+	@ManyToOne
 	public Task task;
 
 	public Event() {

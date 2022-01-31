@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.github.minigithub.dto.MilestoneDTO;
+import com.github.minigithub.dto.TaskDTO;
 
 import java.util.Collection;
 import java.util.HashSet;

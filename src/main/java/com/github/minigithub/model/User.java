@@ -5,8 +5,6 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +24,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.InheritanceType;
 
 @Entity
@@ -235,6 +232,14 @@ public class User implements UserDetails, Serializable {
    public void removeAllTask() {
       if (tasks != null)
          tasks.clear();
+   }
+
+   public Role getRole() {
+      return role;
+   }
+
+   public void setRole(Role role) {
+      this.role = role;
    }
 
    @Override

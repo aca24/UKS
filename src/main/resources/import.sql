@@ -36,3 +36,11 @@ INSERT INTO PULL_REQUESTS(id, user_id, name, branch_id) VALUES (158,1, 'pull1',1
 INSERT INTO ISSUES(id, user_id, date_created, description, title) VALUES (159,1, '2020-05-05','opis1', 'title1');
 
 INSERT INTO ISSUES_PULL_REQUESTS(pull_request_id, issue_id) VALUES (158, 159);
+
+INSERT INTO GIT_REPOS(id,name) VALUES (123, 'gitRepo1');
+
+INSERT INTO GIT_REPOS_BRANCHES(git_repo_id, branches_id) VALUES (123,1);
+
+INSERT INTO PROJECTS(id,title,git_repo_id,leader_id) VALUES (45,'proj1',123,1);
+
+INSERT INTO GIT_REPOS_PROJECTS(git_repo_id, projects_id) VALUES (123,45);

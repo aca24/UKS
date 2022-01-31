@@ -25,6 +25,7 @@ public class BranchController {
     @Autowired
     public BranchService branchService;
 
+    @GetMapping
     public ResponseEntity<List<BranchDTO>> findAll() {
         return new ResponseEntity<List<BranchDTO>>(
                 branchService.findAll().stream().map((branch) -> new BranchDTO(branch)).collect(Collectors.toList()),

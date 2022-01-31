@@ -1,7 +1,6 @@
 package com.github.minigithub.dto;
 
 import java.time.LocalDateTime;
-
 import com.github.minigithub.model.Comment;
 
 public class CommentDTO extends EventDTO {

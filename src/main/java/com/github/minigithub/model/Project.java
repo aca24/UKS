@@ -1,22 +1,23 @@
 package com.github.minigithub.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "projects")
@@ -29,24 +30,93 @@ public class Project implements Serializable {
    @Column(name = "title", unique = false, nullable = false)
    private String title;
 
-   @ManyToOne()
+   @ManyToOne
    public GitRepo gitRepo;
 
-   @OneToMany()
+   @OneToMany
    public Collection<Milestone> milestones;
 
-   @OneToMany()
+   @OneToMany
    public Collection<Label> labels;
 
-   @ManyToMany()
+   @ManyToMany
    @JoinTable(name = "developers_projects", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
    public Collection<User> developers;
 
-   @Column(name = "leader", unique = false, nullable = false)
+   //@Column(name = "leader", unique = false, nullable = false)
+   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+   @JoinColumn(name = "leader_id", unique = false, nullable = false)
    public User leader;
 
-   public Long getId() {
-      return id;
+   
+   public Project() {
+	super();
+   }
+
+   public Project(Long id, String title, GitRepo gitRepo, Collection<Milestone> milestones, Collection<Label> labels,
+		Collection<User> developers, User leader) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.gitRepo = gitRepo;
+		this.milestones = milestones;
+		this.labels = labels;
+		this.developers = developers;
+		this.leader = leader;
+   }
+   
+   
+
+	public String getTitle() {
+	return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public GitRepo getGitRepo() {
+		return gitRepo;
+	}
+	
+	public void setGitRepo(GitRepo gitRepo) {
+		this.gitRepo = gitRepo;
+	}
+	
+	public Collection<Milestone> getMilestones() {
+		return milestones;
+	}
+	
+	public void setMilestones(Collection<Milestone> milestones) {
+		this.milestones = milestones;
+	}
+	
+	public Collection<Label> getLabels() {
+		return labels;
+	}
+	
+	public void setLabels(Collection<Label> labels) {
+		this.labels = labels;
+	}
+	
+	public Collection<User> getDevelopers() {
+		return developers;
+	}
+	
+	public void setDevelopers(Collection<User> developers) {
+		this.developers = developers;
+	}
+	
+	public User getLeader() {
+		return leader;
+	}
+	
+	public void setLeader(User leader) {
+		this.leader = leader;
+	}
+
+	public Long getId() {
+		return id;
    }
 
    public void setId(Long id) {

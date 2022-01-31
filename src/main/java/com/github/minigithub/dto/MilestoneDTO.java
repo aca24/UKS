@@ -10,14 +10,45 @@ public class MilestoneDTO {
 
 	private Long id;
 	private String description;
+	private String title;
 	private Date dueDate;
 	private State state;
-//	private Collection<TaskDTO> tasks;
+	private Collection<TaskDTO> tasks;
 	
+
+
+	public MilestoneDTO(Long id, String description, String title, Date dueDate, State state,
+			Collection<TaskDTO> tasks) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.title = title;
+		this.dueDate = dueDate;
+		this.state = state;
+		this.tasks = tasks;
+	}
+
 	public MilestoneDTO() {
 		super();
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Collection<TaskDTO> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(Collection<TaskDTO> tasks) {
+		this.tasks = tasks;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

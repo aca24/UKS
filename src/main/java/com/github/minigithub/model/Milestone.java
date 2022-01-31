@@ -51,11 +51,52 @@ public class Milestone implements Serializable {
       this.id = id;
    }
 
-   public Collection<Task> getTask() {
-      if (tasks == null)
-         tasks = new HashSet<Task>();
-      return tasks;
-   }
+   
+   public String getDescription() {
+	return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public Date getDueDate() {
+		return dueDate;
+	}
+	
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+	
+	public State getState() {
+		return state;
+	}
+	
+	public void setState(State state) {
+		this.state = state;
+	}
+	
+	public Collection<Task> getTasks() {
+		return tasks;
+	}
+	
+	public void setTasks(Collection<Task> tasks) {
+		this.tasks = tasks;
+	}
+	
+	public Collection<Task> getTask() {
+	      if (tasks == null)
+	         tasks = new HashSet<Task>();
+	      return tasks;
+	}
 
    public Iterator getIteratorTask() {
       if (tasks == null)

@@ -56,45 +56,27 @@ public class PullRequestController {
 	
 	@PostMapping
 	public ResponseEntity<PullRequestDTO> createPullRequest( @RequestBody PullRequestDTO pullReqDTO){
-		System.out.println("create pullReq");
-		PullRequest pullReq;
-		try {
-			pullReq = pullReqService.create(pullReqMapper.toEntity(pullReqDTO));
-		}catch (Exception e) {
-			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+		
+		PullRequest pullReq = pullReqService.create(pullReqMapper.toEntity(pullReqDTO));
+		if(pullReq == null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(pullReqMapper.toDto(pullReq), HttpStatus.CREATED);
-	}
+		}
 
 	
 	@RequestMapping(value = "/{pullReqId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletePullRequest(@PathVariable Long pullReqId){
-		try {
-			System.out.println(pullReqId.TYPE);
-			pullReqService.deleteById(pullReqId);
-			
-		}catch(Exception e) {
-			System.out.print("\n" + e + "\n");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		if(pullReqService.deleteById(pullReqId)) return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	
 	 @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public ResponseEntity<PullRequestDTO> updatePullRequest(@RequestBody PullRequestDTO pullReqDTO, @PathVariable Long id){
-		 PullRequest pullReq;
-		 try {
-			 pullReq = pullReqService.updateName(pullReqMapper.toEntity(pullReqDTO), id);
-		 } catch (Exception e) {
-			 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		 }
-		 
-		 
-		 
+		 PullRequest pullReq = pullReqService.updateName(pullReqMapper.toEntity(pullReqDTO), id);
+		 if (pullReq == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		 return new ResponseEntity<>(pullReqMapper.toDto(pullReq), HttpStatus.OK);
+		 
 	 }
 
 	

@@ -14,4 +14,8 @@ public class BranchDTO {
         this.id = branch.getId();
         this.name = branch.getName();
     }
+
+    public String getName(){
+        return name;
+    }
 }

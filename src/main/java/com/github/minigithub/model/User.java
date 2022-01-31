@@ -61,19 +61,27 @@ public class User implements UserDetails, Serializable {
    public Collection<Task> tasks;
 
    public User(Long id, String username, String password, String firstName, String lastName) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-	
-	public User() {
-		super();
-	}
+      super();
+      this.id = id;
+      this.username = username;
+      this.password = password;
+      this.firstName = firstName;
+      this.lastName = lastName;
+   }
 
-public Long getId() {
+   public User(UserDTO user) {
+      this.id = user.getId();
+      this.firstName = user.getFirstName();
+      this.lastName = user.getLastName();
+      this.username = user.getUsername();
+      this.password = user.getPassword();
+   }
+
+   public User() {
+      super();
+   }
+
+   public Long getId() {
       return id;
    }
 
@@ -82,12 +90,19 @@ public Long getId() {
    }
 
    public String getFirstName() {
-      return firstName;
-   }
+		return firstName;
+	}
 
-   public String getLastName() {
-      return lastName;
-   }
+    public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+    public String getLastName() {
+		return lastName;
+	}
+
+    public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
    public Collection<Project> getProject() {
       if (projects == null)
@@ -227,33 +242,25 @@ public Long getId() {
       this.role = role;
    }
 
-   public User(UserDTO userDTO) {
-      this.firstName = userDTO.getFirstName();
-      this.lastName = userDTO.getLastName();
-      this.username = userDTO.getUsername();
-      this.password = userDTO.getPassword();
-   }
-
    @Override
    public String toString() {
       // TODO Auto-generated method stub
       return super.toString();
    }
 
-   @Override
-   public Collection<? extends GrantedAuthority> getAuthorities() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
    public String getPassword() {
       // TODO Auto-generated method stub
-      return null;
+      return password;
+   }
+
+   
+   public String getUsername() {
+      // TODO Auto-generated method stub
+      return username;
    }
 
    @Override
-   public String getUsername() {
+   public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
       return null;
    }

@@ -7,7 +7,7 @@ import java.util.*;
 import com.github.minigithub.model.State;
 import com.github.minigithub.model.StateChange;
 
-public class StateChangeDTO extends EventDTO implements Serializable {
+public class StateChangeDTO extends EventDTO {
 
   private State newState;
 

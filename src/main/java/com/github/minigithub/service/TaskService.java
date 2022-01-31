@@ -1,15 +1,24 @@
 package com.github.minigithub.service;
 
-import com.github.minigithub.repository.TaskRepository;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.github.minigithub.dto.TaskDTO;
+import com.github.minigithub.model.Task;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Service
-public class TaskService {
-    
-    @Autowired
-	private TaskRepository taskRepository;
+public interface TaskService {
 
-    
+    Task findOne(Long id);
+
+    List<Task> findAll();
+
+    Page<Task> findAll(Pageable page);
+
+    Task save(TaskDTO Task);
+
+    Task update(TaskDTO Task) throws Exception;
+
+    void remove(Long id);
+
 }

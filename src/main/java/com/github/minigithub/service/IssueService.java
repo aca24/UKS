@@ -35,9 +35,13 @@ public class IssueService {
 	public Issue updateTitle(Issue entity, Long id) {
 		Issue existingIssue = issueRepo.findById(id).orElse(null);
 		if(existingIssue == null) 	return null; 
-		existingIssue.setTitle(entity.getTitle());
+		try {
+			existingIssue.setTitle(entity.getTitle());
+			return issueRepo.save(existingIssue);
+		} catch (Exception e) {
+			return null;
+		}
 		
-		return issueRepo.save(existingIssue);
 	}
 	        	
 

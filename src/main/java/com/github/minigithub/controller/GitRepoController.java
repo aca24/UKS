@@ -64,6 +64,14 @@ public class GitRepoController {
 	}
 	
 	
+	 @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public ResponseEntity<GitRepoDTO> updateGitRepo(@RequestBody GitRepoDTO gitRepoDTO, @PathVariable Long id){
+		 GitRepo gitRepo = gitRepoService.updateName(gitRepoMapper.toEntity(gitRepoDTO), id);
+		 if (gitRepo == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		 return new ResponseEntity<>(gitRepoMapper.toDto(gitRepo), HttpStatus.OK);
+		 
+	 }
+	
 
 	private List<GitRepoDTO> toGitRepoDTOList(List<GitRepo> list){
 		List<GitRepoDTO> retVal = new ArrayList<GitRepoDTO> ();

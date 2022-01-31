@@ -6,15 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.minigithub.dto.BranchDTO;
 import com.github.minigithub.dto.GitRepoDTO;
-import com.github.minigithub.dto.IssueDTO;
 import com.github.minigithub.dto.ProjectDTO;
-import com.github.minigithub.dto.PullRequestDTO;
 import com.github.minigithub.model.Branch;
 import com.github.minigithub.model.GitRepo;
-import com.github.minigithub.model.Issue;
 import com.github.minigithub.model.Project;
-import com.github.minigithub.model.PullRequest;
-import com.github.minigithub.model.User;
 
 public class GitRepoMapper implements MapperInterface<GitRepo, GitRepoDTO> {
 	
@@ -31,16 +26,25 @@ public class GitRepoMapper implements MapperInterface<GitRepo, GitRepoDTO> {
 	@Override
 	public GitRepo toEntity(GitRepoDTO dto) {
 		ArrayList<Project> projects = new ArrayList<>();
-		for (ProjectDTO projectDTO : dto.getProjects()) {
-			projects.add(ProjectMapper.toEntity(projectDTO));
+		if(dto.getProjects() != null) {
+			for (ProjectDTO projectDTO : dto.getProjects()) {
+				projects.add(ProjectMapper.toEntity(projectDTO));
+			}
 		}
 		
 		ArrayList<Branch> branches = new ArrayList<>();
-		for (BranchDTO branchDTO : dto.getBranches()) {
-			branches.add(branchMapper.toEntity(branchDTO));
+		if(dto.getBranches() != null) {
+			for (BranchDTO branchDTO : dto.getBranches()) {
+				branches.add(branchMapper.toEntity(branchDTO));
+			}
 		}
+			
+		GitRepo gr = new GitRepo();		
+		gr.setId(dto.getId());
+		gr.setName(dto.getName());
+		gr.setBranches(branches);
+		gr.setProjects(projects);
 		
-		GitRepo gr = new GitRepo(dto.getId(), dto.getName(), branches, projects);		
 		return gr;
 	}
 

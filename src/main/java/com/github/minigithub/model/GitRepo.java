@@ -30,11 +30,27 @@ public class GitRepo implements Serializable {
   // @OneToMany(mappedBy = "gitRepo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @OneToMany()
    public Collection<Branch> branches;
-
+   
    @OneToMany()
    public Collection<Project> projects;
 
-   public Long getId() {
+   
+   public GitRepo(Long id, String name, Collection<Branch> branches, Collection<Project> projects) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.branches = branches;
+	this.projects = projects;
+}
+
+
+
+   public GitRepo() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+
+public Long getId() {
       return id;
    }
 
@@ -81,4 +97,28 @@ public class GitRepo implements Serializable {
       if (branches != null)
          branches.clear();
    }
+
+public Collection<Project> getProjects() {
+	return projects;
+}
+
+public void setProjects(Collection<Project> projects) {
+	this.projects = projects;
+}
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public Collection<Branch> getBranches() {
+	return branches;
+}
+
+public void setBranches(Collection<Branch> branches) {
+	this.branches = branches;
+}
 }

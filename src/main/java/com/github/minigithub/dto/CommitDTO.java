@@ -3,6 +3,7 @@ package com.github.minigithub.dto;
 import java.util.Date;
 
 import com.github.minigithub.model.Commit;
+import com.github.minigithub.model.User;
 
 import lombok.Data;
 
@@ -24,4 +25,29 @@ public class CommitDTO {
         this.commiterId = commit.getCommiter().getId();
         this.branchId = commit.getBranch().getId();
     }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public Long getBranchId(){
+        return branchId;
+    }
+
+    public Long getCommiterId() {
+        return commiterId;
+    }
+
+    public String getLogMessage() {
+        return logMessage;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
 }

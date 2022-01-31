@@ -9,7 +9,9 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.github.minigithub.dto.EventDTO;
+import com.github.minigithub.dto.MilestoneDTO;
 import com.github.minigithub.dto.TaskDTO;
+import com.github.minigithub.dto.UserDTO;
 
 import lombok.EqualsAndHashCode;
 
@@ -39,10 +41,10 @@ public class Task implements Serializable {
    @TableGenerator(table = "SEQUENCES_TASK", name = "ConfirmationCodeGeneratorTwo")
    private Long id;
 
-   @OneToMany(mappedBy = "task")
+   @OneToMany
    public Collection<Event> events;
 
-   @ManyToOne()
+   @ManyToOne
    public Milestone milestone;
 
    @ManyToOne
@@ -61,13 +63,31 @@ public class Task implements Serializable {
 
    public Task(TaskDTO task) {
       this.id = task.getId();
+      this.milestone = new Milestone(task.getMilestone());
 
       Collection<Event> events = new ArrayList<Event>();
       for (EventDTO event : task.getEvents()) {
          events.add(new Event(event));
       }
       this.events = events;
-      this.creator = task.getCreator();
+
+      this.creator = new User(task.getCreator());
+   }
+
+   public Long getId() {
+      return id;
+   }
+
+   public void setId(Long id) {
+      this.id = id;
+   }
+
+   public Collection<Event> getEvents(Collection<Event> events) {
+      return events;
+   }
+
+   public void setEvents(Collection<Event> events) {
+      this.events = events;
    }
 
    public User getCreator() {
@@ -78,12 +98,12 @@ public class Task implements Serializable {
       this.creator = creator;
    }
 
-   public Long getId() {
-      return id;
+   public Milestone getMilestone() {
+      return milestone;
    }
 
-   public void setId(Long id) {
-      this.id = id;
+   public void setMilestone(Milestone milestone) {
+      this.milestone = milestone;
    }
 
    public Collection<Event> getEvent() {
@@ -126,21 +146,19 @@ public class Task implements Serializable {
          events.clear();
    }
 
-   public Milestone getMilestone() {
-      return milestone;
-   }
-
-   public void setMilestone(Milestone newMilestone) {
-      if (this.milestone == null || !this.milestone.equals(newMilestone)) {
-         if (this.milestone != null) {
-            Milestone oldMilestone = this.milestone;
-            this.milestone = null;
-            oldMilestone.removeTask(this);
-         }
-         if (newMilestone != null) {
-            this.milestone = newMilestone;
-            this.milestone.addTask(this);
-         }
-      }
-   }
+   /*
+    * public void setMilestone(Milestone newMilestone) {
+    * if (this.milestone == null || !this.milestone.equals(newMilestone)) {
+    * if (this.milestone != null) {
+    * Milestone oldMilestone = this.milestone;
+    * this.milestone = null;
+    * oldMilestone.removeTask(this);
+    * }
+    * if (newMilestone != null) {
+    * this.milestone = newMilestone;
+    * this.milestone.addTask(this);
+    * }
+    * }
+    * }
+    */
 }

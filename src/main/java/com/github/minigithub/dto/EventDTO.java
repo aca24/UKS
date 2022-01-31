@@ -29,6 +29,11 @@ public class EventDTO implements Serializable {
         this.task = new TaskDTO(task);
     }
 
+    public EventDTO(Long id, LocalDateTime creationTime) {
+        this.id = id;
+        this.creationTime = creationTime;
+    }
+
     public EventDTO(Event event) {
         this.id = event.getId();
         this.creationTime = event.getCreationTime();

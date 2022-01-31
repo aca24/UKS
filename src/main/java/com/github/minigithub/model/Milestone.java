@@ -11,6 +11,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.minigithub.dto.MilestoneDTO;
+import com.github.minigithub.dto.TaskDTO;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -43,6 +47,17 @@ public class Milestone implements Serializable {
    @OneToMany(mappedBy = "milestone")
    public Collection<Task> tasks;
 
+   public Milestone(){
+
+   }
+   
+   public Milestone(MilestoneDTO milestone) {
+		this.id = milestone.getId();
+		this.description = milestone.getDescription();
+		this.title = milestone.getTitle();
+		this.state = milestone.getState();
+	}
+
    public Long getId() {
       return id;
    }
@@ -51,52 +66,51 @@ public class Milestone implements Serializable {
       this.id = id;
    }
 
-   
    public String getDescription() {
-	return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public Date getDueDate() {
-		return dueDate;
-	}
-	
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
-	
-	public State getState() {
-		return state;
-	}
-	
-	public void setState(State state) {
-		this.state = state;
-	}
-	
-	public Collection<Task> getTasks() {
-		return tasks;
-	}
-	
-	public void setTasks(Collection<Task> tasks) {
-		this.tasks = tasks;
-	}
-	
-	public Collection<Task> getTask() {
-	      if (tasks == null)
-	         tasks = new HashSet<Task>();
-	      return tasks;
-	}
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public String getTitle() {
+      return title;
+   }
+
+   public void setTitle(String title) {
+      this.title = title;
+   }
+
+   public Date getDueDate() {
+      return dueDate;
+   }
+
+   public void setDueDate(Date dueDate) {
+      this.dueDate = dueDate;
+   }
+
+   public State getState() {
+      return state;
+   }
+
+   public void setState(State state) {
+      this.state = state;
+   }
+
+   public Collection<Task> getTasks() {
+      return tasks;
+   }
+
+   public void setTasks(Collection<Task> tasks) {
+      this.tasks = tasks;
+   }
+
+   public Collection<Task> getTask() {
+      if (tasks == null)
+         tasks = new HashSet<Task>();
+      return tasks;
+   }
 
    public Iterator getIteratorTask() {
       if (tasks == null)

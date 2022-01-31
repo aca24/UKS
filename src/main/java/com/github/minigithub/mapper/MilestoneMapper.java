@@ -20,8 +20,7 @@ public class MilestoneMapper {
 		
 		Collection<TaskDTO> tasks = new ArrayList<TaskDTO>();
 		for(Task tentity: entity.getTasks()) {
-			//tasks.add(TaskMapper.toDto(tentity));
-			tasks.add(new TaskDTO());
+			tasks.add(TaskMapper.toDto(tentity));
 		}
 		dto.setTasks(tasks);
 		return dto;
@@ -37,8 +36,7 @@ public class MilestoneMapper {
 		
 		Collection<Task> tasks = new ArrayList<Task>();
 		for(TaskDTO tdto: dto.getTasks()) {
-			//tasks.add(TaskMapper.toEntity(tdto));
-			tasks.add(new Task());
+			tasks.add(TaskMapper.toEntity(tdto));
 		}
 		entity.setTasks(tasks);
 		return entity;

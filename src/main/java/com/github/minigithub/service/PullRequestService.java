@@ -18,21 +18,23 @@ public class PullRequestService {
 		return pullReqRepo.findAll();
 	}
 	
-	public PullRequest create(PullRequest entity) throws Exception {
-		 	PullRequest pReq = pullReqRepo.save(entity);
-		 	System.out.println(pReq);
-	        return pReq ;
-	        
-
+	public PullRequest create(PullRequest entity) {
+		try {
+			return pullReqRepo.save(entity);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	
-	public void deleteById(Long id) throws Exception {
+	public boolean deleteById(Long id) {
 		PullRequest existing = pullReqRepo.findById(id).orElse(null);
 		if(existing != null) {
 			pullReqRepo.deleteById(id);
+			return true;
 		}else {
-			throw new Exception("Pull request with given id doesn't exist");
+			return false;
+			//throw new Exception("Pull request with given id doesn't exist");
 		}
 	}
 
@@ -41,14 +43,16 @@ public class PullRequestService {
 	}
 
 
-	public PullRequest updateName(PullRequest entity, Long id) throws Exception {
+	public PullRequest updateName(PullRequest entity, Long id) {
 		PullRequest existingPullReq = pullReqRepo.findById(id).orElse(null);
-		if(existingPullReq == null) {
-			throw new Exception("Pull request with given id does not exist!");
+		if(existingPullReq == null) return null;
+		try {
+			existingPullReq.setName(entity.getName());	
+			return pullReqRepo.save(existingPullReq);
+		} catch (Exception e) {
+			return null;
 		}
-		existingPullReq.setName(entity.getName());	
 		
-		return pullReqRepo.save(existingPullReq);
 	}
 
 	

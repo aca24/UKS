@@ -55,8 +55,16 @@ public class GitRepoController {
 				
 	}
 	
-
+	@PostMapping
+	public ResponseEntity<GitRepoDTO> createGitRepo( @RequestBody GitRepoDTO gitRepoDTO){
+		GitRepo gitRepo = gitRepoService.create(gitRepoMapper.toEntity(gitRepoDTO));
+		if(gitRepo == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(gitRepoMapper.toDto(gitRepo), HttpStatus.CREATED);
+	}
 	
+	
+
 	private List<GitRepoDTO> toGitRepoDTOList(List<GitRepo> list){
 		List<GitRepoDTO> retVal = new ArrayList<GitRepoDTO> ();
 		for(GitRepo entity: list) {

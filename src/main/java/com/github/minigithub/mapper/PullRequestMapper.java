@@ -2,6 +2,8 @@ package com.github.minigithub.mapper;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.minigithub.dto.IssueDTO;
 import com.github.minigithub.dto.PullRequestDTO;
 import com.github.minigithub.model.Issue;
@@ -11,9 +13,16 @@ import com.github.minigithub.model.User;
 public class PullRequestMapper implements MapperInterface<PullRequest, PullRequestDTO> {
 	
 	BranchMapper branchMapper = new BranchMapper();
-	IssueMapper issuesMapper = new IssueMapper();
+	
+	@Autowired
+	IssueMapper issuesMapper;
 	
 	
+	
+
+	public PullRequestMapper() {
+		issuesMapper = new IssueMapper();
+	}
 
 	@Override
 	public PullRequest toEntity(PullRequestDTO dto) {
@@ -29,6 +38,7 @@ public class PullRequestMapper implements MapperInterface<PullRequest, PullReque
 		creator.setId(1L);
 		pReq.setCreator(creator);
 		//------
+		//pReq.setCreator(userMapper.toEntity(dto.getCreator()));
 		return pReq;
 	}
 

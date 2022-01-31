@@ -2,24 +2,12 @@ package com.github.minigithub.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-
 import com.github.minigithub.dto.EventDTO;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.ManyToOne;
-import javax.persistence.GenerationType;
-
-import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "events")
-@Inheritance(strategy = TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Event implements Serializable {
 
 	@Id

@@ -1,26 +1,16 @@
 package com.github.minigithub.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.github.minigithub.dto.LabelApplicationDTO;
 import com.github.minigithub.model.LabelApplication;
 import com.github.minigithub.mapper.LabelApplicationMapper;
 import com.github.minigithub.service.LabelApplicationService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/labelApplication", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,7 +69,8 @@ public class LabelApplicationController {
     }
 
     @PostMapping(value = "/save")
-    public ResponseEntity<LabelApplicationDTO> saveLabelApplication(@RequestBody LabelApplicationDTO labelApplicationDTO) {
+    public ResponseEntity<LabelApplicationDTO> saveLabelApplication(
+            @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication = new LabelApplication();
         try {
             labelApplication = labelApplicationService.save(labelApplicationDTO);
@@ -91,7 +82,8 @@ public class LabelApplicationController {
     }
 
     @PutMapping(value = "update/{id}")
-    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id, @RequestBody LabelApplicationDTO labelApplicationDTO) {
+    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id,
+            @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication;
         try {
             labelApplication = labelApplicationService.findOne(id);
@@ -104,7 +96,7 @@ public class LabelApplicationController {
         }
 
         try {
-            labelApplication = labelApplicationService.save(labelApplicationDTO);
+            labelApplication = labelApplicationService.update(id, labelApplicationDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

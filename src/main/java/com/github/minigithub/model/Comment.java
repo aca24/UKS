@@ -1,11 +1,7 @@
 package com.github.minigithub.model;
 
-import java.util.*;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
 import com.github.minigithub.dto.CommentDTO;
 
 @Entity

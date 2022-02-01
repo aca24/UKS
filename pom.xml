@@ -69,4 +69,14 @@
 		<finalName>minigithub-docker</finalName>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>staging</id>
+			<properties>
+				<build.profile.id>staging</build.profile.id>
+				<profileActive>staging</profileActive>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>

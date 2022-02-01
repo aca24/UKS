@@ -77,6 +77,13 @@
 				<profileActive>staging</profileActive>
 			</properties>
 		</profile>
+		<profile>
+			<id>build</id>
+			<properties>
+				<build.profile.id>build</build.profile.id>
+				<profileActive>build</profileActive>
+			</properties>
+		</profile>
 	</profiles>
 
 </project>

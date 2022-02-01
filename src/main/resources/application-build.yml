@@ -1,0 +1,13 @@
+spring:
+  profile:
+    active: build
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-99-81-177-233.eu-west-1.compute.amazonaws.com:5432/dcqg999rrujjk
+    username: yluixguxhckfqh
+    password: 5047b1196768cb22444296996bf4af5247994000f7de849eff2b1c633ae7e3b4
+  jpa:
+    hibernate.ddl-auto: create-drop
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  main:
+    allow-circular-references: true

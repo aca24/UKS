@@ -1,0 +1,70 @@
+package com.github.minigithub.controller;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.github.minigithub.dto.ProjectDTO;
+import com.github.minigithub.service.ProjectService;
+
+@RestController
+@RequestMapping(value = "/api/project", produces = MediaType.APPLICATION_JSON_VALUE)
+public class ProjectController {
+
+	@Autowired
+	private ProjectService projectService;
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<ProjectDTO>> getAll(){
+		List<ProjectDTO> projects = projectService.findAll();
+		
+		return new ResponseEntity<>(projects, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}" , method = RequestMethod.GET)
+	public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id){
+		ProjectDTO retVal = projectService.findById(id);
+		if (retVal == null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		return new ResponseEntity<>(retVal, HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<ProjectDTO> addNew(@RequestBody ProjectDTO project){
+		ProjectDTO created = projectService.create(project);
+		if(created == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(created, HttpStatus.OK);
+	}
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<ProjectDTO> editProject(@RequestBody ProjectDTO project){
+		ProjectDTO updated = projectService.update(project);
+		if(updated == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(updated, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteProject(@PathVariable Long id){
+		try {
+			projectService.delete(id);
+		}catch(Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+}

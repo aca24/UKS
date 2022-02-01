@@ -8,9 +8,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.github.minigithub.dto.EventDTO;
+import com.github.minigithub.dto.MilestoneDTO;
+import com.github.minigithub.dto.TaskDTO;
+import com.github.minigithub.dto.UserDTO;
+
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,8 +32,8 @@ import javax.persistence.JoinColumn;
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
-@Table(name="tasks")
-@Inheritance(strategy=TABLE_PER_CLASS)
+@Table(name = "tasks")
+@Inheritance(strategy = TABLE_PER_CLASS)
 public class Task implements Serializable {
 
    @Id
@@ -35,30 +41,69 @@ public class Task implements Serializable {
    @TableGenerator(table = "SEQUENCES_TASK", name = "ConfirmationCodeGeneratorTwo")
    private Long id;
 
-   @OneToMany(mappedBy = "task")
+   @OneToMany
    public Collection<Event> events;
 
-   @ManyToOne()
+   @ManyToOne
    public Milestone milestone;
 
    @ManyToOne
    @JoinColumn(name = "user_id", nullable = false, unique = false)
    public User creator;
 
-   public User getCreator() {
-	   return creator;
-}
+   public Task() {
+   }
 
-   public void setCreator(User creator) {
-	   this.creator = creator;
-}
+   public Task(Long id, Collection<Event> events, Milestone milestone, User creator) {
+      this.id = id;
+      this.events = events;
+      this.milestone = milestone;
+      this.creator = creator;
+   }
 
-public Long getId() {
+   public Task(TaskDTO task) {
+      this.id = task.getId();
+      this.milestone = new Milestone(task.getMilestone());
+
+      Collection<Event> events = new ArrayList<Event>();
+      for (EventDTO event : task.getEvents()) {
+         events.add(new Event(event));
+      }
+      this.events = events;
+
+      this.creator = new User(task.getCreator());
+   }
+
+   public Long getId() {
       return id;
    }
 
    public void setId(Long id) {
       this.id = id;
+   }
+
+   public Collection<Event> getEvents(Collection<Event> events) {
+      return events;
+   }
+
+   public void setEvents(Collection<Event> events) {
+      this.events = events;
+   }
+
+   public User getCreator() {
+      return creator;
+   }
+
+   public void setCreator(User creator) {
+      this.creator = creator;
+   }
+
+   public Milestone getMilestone() {
+      return milestone;
+   }
+
+   public void setMilestone(Milestone milestone) {
+      this.milestone = milestone;
    }
 
    public Collection<Event> getEvent() {
@@ -101,21 +146,19 @@ public Long getId() {
          events.clear();
    }
 
-   public Milestone getMilestone() {
-      return milestone;
-   }
-
-   public void setMilestone(Milestone newMilestone) {
-      if (this.milestone == null || !this.milestone.equals(newMilestone)) {
-         if (this.milestone != null) {
-            Milestone oldMilestone = this.milestone;
-            this.milestone = null;
-            oldMilestone.removeTask(this);
-         }
-         if (newMilestone != null) {
-            this.milestone = newMilestone;
-            this.milestone.addTask(this);
-         }
-      }
-   }
+   /*
+    * public void setMilestone(Milestone newMilestone) {
+    * if (this.milestone == null || !this.milestone.equals(newMilestone)) {
+    * if (this.milestone != null) {
+    * Milestone oldMilestone = this.milestone;
+    * this.milestone = null;
+    * oldMilestone.removeTask(this);
+    * }
+    * if (newMilestone != null) {
+    * this.milestone = newMilestone;
+    * this.milestone.addTask(this);
+    * }
+    * }
+    * }
+    */
 }

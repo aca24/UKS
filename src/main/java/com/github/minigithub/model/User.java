@@ -1,15 +1,17 @@
 package com.github.minigithub.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.minigithub.dto.UserDTO;
+
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -23,7 +25,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.InheritanceType;
 
 @Entity
@@ -51,14 +52,36 @@ public class User implements UserDetails, Serializable {
    @JoinColumn(name = "role_id")
    public Role role;
 
-   @ManyToMany(mappedBy = "developers", cascade = CascadeType.ALL)
+   @ManyToMany(mappedBy = "developers", cascade = CascadeType.DETACH)
    public Collection<Project> projects;
 
-   @OneToMany( cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL)
    public Collection<Commit> commits;
 
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
+
+   
+   public User(Long id, String username, String password, String firstName, String lastName) {
+      super();
+      this.id = id;
+      this.username = username;
+      this.password = password;
+      this.firstName = firstName;
+      this.lastName = lastName;
+   }
+
+   public User(UserDTO user) {
+      this.id = user.getId();
+      this.firstName = user.getFirstName();
+      this.lastName = user.getLastName();
+      this.username = user.getUsername();
+      this.password = user.getPassword();
+   }
+
+   public User() {
+      super();
+   }
 
    public Long getId() {
       return id;
@@ -67,6 +90,58 @@ public class User implements UserDetails, Serializable {
    public void setId(Long id) {
       this.id = id;
    }
+
+   
+   public Collection<Project> getProjects() {
+	return projects;
+}
+
+	public void setProjects(Collection<Project> projects) {
+		this.projects = projects;
+	}
+	
+	public Collection<Commit> getCommits() {
+		return commits;
+	}
+	
+	public void setCommits(Collection<Commit> commits) {
+		this.commits = commits;
+	}
+	
+	public Collection<Task> getTasks() {
+		return tasks;
+	}
+	
+	public void setTasks(Collection<Task> tasks) {
+		this.tasks = tasks;
+	}
+	
+	public String getEmail() {
+		return this.username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+    public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+    public String getLastName() {
+		return lastName;
+	}
+
+    public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
    public Collection<Project> getProject() {
       if (projects == null)
@@ -198,51 +273,60 @@ public class User implements UserDetails, Serializable {
          tasks.clear();
    }
 
+   public Role getRole() {
+      return role;
+   }
+
+   public void setRole(Role role) {
+      this.role = role;
+   }
+
    @Override
    public String toString() {
       // TODO Auto-generated method stub
       return super.toString();
    }
 
+   public String getPassword() {
+      // TODO Auto-generated method stub
+      return password;
+   }
+
+   
+   public String getUsername() {
+      // TODO Auto-generated method stub
+      return username;
+   }
+
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public String getPassword() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public String getUsername() {
-      // TODO Auto-generated method stub
-      return null;
+	   Collection<Role> retVal = new ArrayList<Role>();
+	   retVal.add(this.getRole());
+	   return retVal;
    }
 
    @Override
    public boolean isAccountNonExpired() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 
    @Override
    public boolean isAccountNonLocked() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 
    @Override
    public boolean isCredentialsNonExpired() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 
    @Override
    public boolean isEnabled() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 }

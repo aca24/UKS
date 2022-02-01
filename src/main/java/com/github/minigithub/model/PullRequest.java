@@ -1,24 +1,33 @@
 package com.github.minigithub.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 @Entity
 @Table(name = "pullRequests")
 public class PullRequest extends Task implements Serializable {
+
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3786980603970889902L;
+
+public PullRequest() {
+		super();
+	}
+
+   
+
 
    @Column(name = "name", unique = false, nullable = false)
    private String name;
@@ -29,6 +38,12 @@ public class PullRequest extends Task implements Serializable {
 
    @ManyToOne()
    public Branch branch;
+   
+   public PullRequest(String name, Branch branch) {
+	      super();
+	      this.name = name;
+	      this.branch = branch;
+	   }
 
    public PullRequest(String name, Collection<Issue> issues, Branch branch) {
       super();
@@ -94,4 +109,20 @@ public class PullRequest extends Task implements Serializable {
          }
       }
    }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public Collection<Issue> getIssues() {
+	return issues;
+}
+
+public void setIssues(Collection<Issue> issues) {
+	this.issues = issues;
+}
 }

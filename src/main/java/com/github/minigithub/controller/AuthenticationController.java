@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +28,7 @@ import com.github.minigithub.model.User;
 import com.github.minigithub.repository.UserRepository;
 import com.github.minigithub.security.TokenUtils;
 import com.github.minigithub.service.CustomUserDetailsService;
+import com.github.minigithub.service.UserService;
 
 
 
@@ -42,6 +42,9 @@ public class AuthenticationController {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -71,6 +74,10 @@ public class AuthenticationController {
     public ResponseEntity<?> addUser(@RequestBody UserDTO registeredUserDTO, HttpServletRequest request) throws Exception {
     	
     	// TO DO
+    	UserDTO created = userService.insertUser(registeredUserDTO);
+    	if(created == null) {
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     

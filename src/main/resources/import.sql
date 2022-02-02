@@ -5,8 +5,8 @@ INSERT INTO ROLES (name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('asdf', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'nestodrugo', 'nestodrugo', 1);
 
-INSERT INTO MILESTONES (id, description, due_date, state, title) VALUES (1, 'nesto', '2021-07-03 00:00:00', 'MERGED','nesto');
-INSERT INTO MILESTONES (id, description, due_date, state, title) VALUES (2, 'nestodrugo', '2021-11-03 00:00:00', 'CLOSED','nestodrugo');
+INSERT INTO MILESTONES ( description, due_date, state, title) VALUES ( 'nesto', '2021-07-03 00:00:00', 'MERGED','nesto');
+INSERT INTO MILESTONES (description, due_date, state, title) VALUES ('nestodrugo', '2021-11-03 00:00:00', 'CLOSED','nestodrugo');
 
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (121, 1, 1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (122, 1, 1);

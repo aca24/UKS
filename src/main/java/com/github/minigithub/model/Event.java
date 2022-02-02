@@ -1,7 +1,8 @@
 package com.github.minigithub.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import com.github.minigithub.dto.EventDTO;
 import javax.persistence.*;
 
@@ -16,7 +17,7 @@ public class Event implements Serializable {
 	private Long id;
 
 	@Column(name = "creationTime", unique = false, nullable = false)
-	private LocalDateTime creationTime;
+	private Date creationTime;
 
 	@ManyToOne
 	public Task task;
@@ -24,7 +25,7 @@ public class Event implements Serializable {
 	public Event() {
 	}
 
-	public Event(Long id, LocalDateTime creationTime, Task task) {
+	public Event(Long id, Date creationTime, Task task) {
 		this.id = id;
 		this.creationTime = creationTime;
 		this.task = task;
@@ -44,11 +45,11 @@ public class Event implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreationTime() {
+	public Date getCreationTime() {
 		return creationTime;
 	}
 
-	public void setCreationTime(LocalDateTime creationTime) {
+	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 

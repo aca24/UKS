@@ -1,7 +1,5 @@
 package com.github.minigithub.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import com.github.minigithub.model.State;
@@ -15,7 +13,7 @@ public class StateChangeDTO extends EventDTO {
 
   }
 
-  public StateChangeDTO(Long id, LocalDateTime dateTime, TaskDTO task) {
+  public StateChangeDTO(Long id, Date dateTime, TaskDTO task) {
     super(id, dateTime, task);
   }
 
@@ -23,7 +21,7 @@ public class StateChangeDTO extends EventDTO {
     this.newState = newState;
   }
 
-  public StateChangeDTO(Long id, LocalDateTime dateTime, TaskDTO task, State newState) {
+  public StateChangeDTO(Long id, Date dateTime, TaskDTO task, State newState) {
     super(id, dateTime, task);
     this.newState = newState;
   }

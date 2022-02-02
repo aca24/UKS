@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import com.github.minigithub.dto.LabelApplicationDTO;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "labelApplications")
@@ -12,7 +13,7 @@ public class LabelApplication extends Event {
    public LabelApplication() {
    }
 
-   public LabelApplication(Long id, LocalDateTime creationTime, Task task) {
+   public LabelApplication(Long id, Date creationTime, Task task) {
       super(id, creationTime, task);
    }
 

@@ -1,6 +1,7 @@
 package com.github.minigithub.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import com.github.minigithub.model.LabelApplication;
 
 public class LabelApplicationDTO extends EventDTO {
@@ -8,7 +9,7 @@ public class LabelApplicationDTO extends EventDTO {
     public LabelApplicationDTO() {
     }
 
-    public LabelApplicationDTO(Long id, LocalDateTime creationTime, TaskDTO task) {
+    public LabelApplicationDTO(Long id, Date creationTime, TaskDTO task) {
         super(id, creationTime, task);
     }
 

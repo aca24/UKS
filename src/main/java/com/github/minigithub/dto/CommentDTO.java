@@ -1,6 +1,7 @@
 package com.github.minigithub.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import com.github.minigithub.model.Comment;
 
 public class CommentDTO extends EventDTO {
@@ -10,7 +11,7 @@ public class CommentDTO extends EventDTO {
     public CommentDTO() {
     }
 
-    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task) {
+    public CommentDTO(Long id, Date creationTime, TaskDTO task) {
         super(id, creationTime, task);
     }
 
@@ -18,7 +19,7 @@ public class CommentDTO extends EventDTO {
         this.content = content;
     }
 
-    public CommentDTO(Long id, LocalDateTime creationTime, TaskDTO task, String content) {
+    public CommentDTO(Long id, Date creationTime, TaskDTO task, String content) {
         super(id, creationTime, task);
         this.content = content;
     }

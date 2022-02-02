@@ -1,7 +1,8 @@
 package com.github.minigithub.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import com.github.minigithub.dto.CommentDTO;
 
 @Entity
@@ -14,11 +15,11 @@ public class Comment extends Event {
    public Comment() {
    }
 
-   public Comment(Long id, LocalDateTime creationTime, Task task) {
+   public Comment(Long id, Date creationTime, Task task) {
       super(id, creationTime, task);
    }
 
-   public Comment(Long id, LocalDateTime creationTime, Task task, String content) {
+   public Comment(Long id, Date creationTime, Task task, String content) {
       super(id, creationTime, task);
       this.content = content;
    }

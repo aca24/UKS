@@ -46,6 +46,14 @@ INSERT INTO GIT_REPOS(id,name) VALUES (123, 'gitRepo1');
 
 INSERT INTO GIT_REPOS_BRANCHES(git_repo_id, branches_id) VALUES (123,1);
 
-INSERT INTO PROJECTS(id,title,git_repo_id,leader_id) VALUES (45,'proj1',123,1);
+INSERT INTO PROJECTS(title,git_repo_id,leader_id) VALUES ('proj1',123,1);
 
-INSERT INTO GIT_REPOS_PROJECTS(git_repo_id, projects_id) VALUES (123,45);
+INSERT INTO PROJECTS_MILESTONES (project_id, milestones_id) VALUES (1, 1);
+INSERT INTO PROJECTS_MILESTONES (project_id, milestones_id) VALUES (1, 2);
+
+INSERT INTO PROJECTS_LABELS (project_id, labels_id) VALUES (1,140);
+INSERT INTO PROJECTS_LABELS (project_id, labels_id) VALUES (1,141);
+
+INSERT INTO DEVELOPERS_PROJECTS (project_id, user_id) VALUES (1, 1);
+
+INSERT INTO GIT_REPOS_PROJECTS(git_repo_id, projects_id) VALUES (123,1);

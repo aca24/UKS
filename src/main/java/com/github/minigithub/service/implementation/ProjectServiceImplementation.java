@@ -11,6 +11,7 @@ import com.github.minigithub.dto.LabelDTO;
 import com.github.minigithub.dto.MilestoneDTO;
 import com.github.minigithub.dto.ProjectDTO;
 import com.github.minigithub.dto.UserDTO;
+import com.github.minigithub.mapper.GitRepoMapper;
 import com.github.minigithub.mapper.ProjectMapper;
 import com.github.minigithub.model.Label;
 import com.github.minigithub.model.Milestone;
@@ -19,6 +20,7 @@ import com.github.minigithub.model.User;
 import com.github.minigithub.repository.LabelRepository;
 import com.github.minigithub.repository.MilestoneRepository;
 import com.github.minigithub.repository.ProjectRepository;
+import com.github.minigithub.repository.UserRepository;
 import com.github.minigithub.service.ProjectService;
 
 @Service
@@ -32,6 +34,9 @@ public class ProjectServiceImplementation implements ProjectService{
 	
 	@Autowired
 	private LabelRepository labelRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	
 	public List<ProjectDTO> findAll() {
@@ -64,9 +69,9 @@ public class ProjectServiceImplementation implements ProjectService{
 		
 		System.out.println("********** CREATE NEW PROJECT");
 		Project newProject = new Project();
+		newProject.setGitRepo(GitRepoMapper.toEntity(project.getGitRepo()));
 		newProject.setTitle(project.getTitle());
-		User tempUser = new User(1L, "maca", "maca", "maca", "maca");
-		newProject.setLeader(tempUser);
+		newProject.setLeader(new User(project.getLeader()));
 		
 		Collection<Milestone> mlist = new ArrayList<Milestone>();
 		Collection<User> userList = new ArrayList<User>();
@@ -79,8 +84,8 @@ public class ProjectServiceImplementation implements ProjectService{
 			}
 		if(project.getDevelopers() != null)
 			for (UserDTO udto: project.getDevelopers()) {
-				// userList.add(userRepository.findById(udto.getId()).orElse(null));
-				userList.add(tempUser);
+				userList.add(userRepository.findById(udto.getId()).orElse(null));
+				
 			}
 		if(project.getLabesls() != null)
 			for (LabelDTO ldto: project.getLabesls()) {
@@ -104,12 +109,10 @@ public class ProjectServiceImplementation implements ProjectService{
 	public ProjectDTO update(ProjectDTO project) {
 		Project existing = projectRepository.findById(project.getId()).orElse(null);
 		if(existing != null) {
-			//TO DO
 			
 			existing.setTitle(project.getTitle());
-			//existing.setLeader(UserMapper.toEntity(project.getLeader()));
-			User tempUser = new User(1L, "maca", "maca", "maca", "maca");
-			existing.setLeader(tempUser);
+			existing.setGitRepo(GitRepoMapper.toEntity(project.getGitRepo()));
+			existing.setLeader(new User(project.getLeader()));
 			
 			Collection<Milestone> mlist = new ArrayList<Milestone>();
 			Collection<User> userList = new ArrayList<User>();
@@ -122,8 +125,8 @@ public class ProjectServiceImplementation implements ProjectService{
 				}
 			if(project.getDevelopers() != null)
 				for (UserDTO udto: project.getDevelopers()) {
-					// userList.add(userRepository.findById(udto.getId()).orElse(null));
-					userList.add(tempUser);
+					userList.add(userRepository.findById(udto.getId()).orElse(null));
+
 				}
 			if(project.getLabesls() != null)
 				for (LabelDTO ldto: project.getLabesls()) {

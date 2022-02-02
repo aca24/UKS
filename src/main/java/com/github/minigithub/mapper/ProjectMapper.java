@@ -3,10 +3,12 @@ package com.github.minigithub.mapper;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.github.minigithub.dto.GitRepoDTO;
 import com.github.minigithub.dto.LabelDTO;
 import com.github.minigithub.dto.MilestoneDTO;
 import com.github.minigithub.dto.ProjectDTO;
 import com.github.minigithub.dto.UserDTO;
+import com.github.minigithub.model.GitRepo;
 import com.github.minigithub.model.Label;
 import com.github.minigithub.model.Milestone;
 import com.github.minigithub.model.Project;
@@ -17,11 +19,15 @@ public class ProjectMapper {
 	
 	public static ProjectDTO toDto (Project entity) {
 		ProjectDTO dto = new ProjectDTO();
-		// TO DO 
+
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());
-		//dto.setLeader(UserMapper.toEntity(entity.getLeader()));
-		dto.setLeader(new UserDTO());
+		GitRepoDTO tempRepo = new GitRepoDTO();
+		tempRepo.setName(entity.getGitRepo().getName());
+		tempRepo.setId(entity.getGitRepo().getId());
+		dto.setGitRepo(tempRepo);
+
+		dto.setLeader(new UserDTO(entity.getLeader()));
 		
 		Collection<MilestoneDTO> mlist = new ArrayList<MilestoneDTO>();
 		Collection<UserDTO> userList = new ArrayList<UserDTO>();
@@ -32,8 +38,8 @@ public class ProjectMapper {
 			}
 		if(entity.getDevelopers()!= null)
 			for (User uentity: entity.getDevelopers()) {
-				// userList.add(UserMapper.toDto(uentity);
-				userList.add(new UserDTO());
+
+				userList.add(new UserDTO(uentity));
 			}
 		if(entity.getLabels()!= null)
 			for (Label lentity: entity.getLabels()) {
@@ -49,13 +55,16 @@ public class ProjectMapper {
 	
 	public static Project toEntity (ProjectDTO dto) {
 		Project entity = new Project();
-		// TO DO
 		
-		entity.setId(entity.getId());
-		entity.setTitle(entity.getTitle());
-		//dto.setLeader(UserMapper.toEntity(entity.getLeader()));
-		User tempUser = new User();
-		tempUser.setId(1L);
+		
+		GitRepo tempRepo = new GitRepo();
+		tempRepo.setName(dto.getGitRepo().getName());
+		tempRepo.setId(dto.getGitRepo().getId());
+		entity.setGitRepo(tempRepo);
+		entity.setId(dto.getId());
+		entity.setTitle(dto.getTitle());
+		
+		User tempUser = new User(dto.getLeader());
 		entity.setLeader(tempUser);
 		
 		Collection<Milestone> mlist = new ArrayList<Milestone>();
@@ -68,8 +77,8 @@ public class ProjectMapper {
 		
 		if(dto.getDevelopers()!= null)
 			for (UserDTO udto: dto.getDevelopers()) {
-				// userList.add(UserMapper.toEntity(udto);
-				userList.add(new User());
+
+				userList.add(new User(udto));
 			}
 		if(dto.getLabesls()!= null)
 			for (LabelDTO ldto: dto.getLabesls()) {

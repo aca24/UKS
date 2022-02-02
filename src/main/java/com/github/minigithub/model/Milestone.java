@@ -44,7 +44,7 @@ public class Milestone implements Serializable {
    @Enumerated(EnumType.STRING)
    private State state;
 
-   @OneToMany(mappedBy = "milestone")
+   @OneToMany(mappedBy = "milestone", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
    public Collection<Task> tasks;
 
    public Milestone(){

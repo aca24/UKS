@@ -6,7 +6,7 @@ public class ProjectDTO {
 
 	private Long id;
 	private String title;
-//	private GitRepoDTO giRepo;
+	private GitRepoDTO gitRepo;
 	private Collection<MilestoneDTO> milestones;
 	private Collection<LabelDTO> labesls;
 	private Collection<UserDTO> developers;
@@ -20,6 +20,13 @@ public class ProjectDTO {
 		this.developers = developers;
 	}
 
+	public GitRepoDTO getGitRepo() {
+		return gitRepo;
+	}
+
+	public void setGitRepo(GitRepoDTO gitRepo) {
+		this.gitRepo = gitRepo;
+	}
 	public UserDTO getLeader() {
 		return leader;
 	}

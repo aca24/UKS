@@ -13,9 +13,6 @@ INSERT INTO TASKS (id, user_id, milestone_id) VALUES (122, 1, 1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (123, 1, 1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (124, 1, 1);
 
-INSERT INTO EVENTS (id, creation_time, task_id) VALUES (101, '2021-07-03 00:00:00', 121);
-INSERT INTO EVENTS (id, creation_time, task_id) VALUES (102, '2021-11-03 11:11:11', 122);
-
 INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (1, '2021-07-03 00:00:00', 121, 'nesto');
 INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (2, '2021-11-03 11:11:11', 122, 'nestodrugo');
 

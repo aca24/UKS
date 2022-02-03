@@ -106,6 +106,12 @@ public class MilestoneServiceImplementation implements MilestoneService{
 	public void delete(Long id) {
 		Milestone existing = milestoneRepository.findById(id).orElse(null);
 		if(existing != null) {
+			milestoneRepository.deleteReferences(existing.getId());
+			for(Task t: existing.getTasks()) {
+				t.setMilestone(null);
+				taskRepository.save(t);
+			}
+			System.out.println("References deleted");
 			milestoneRepository.delete(existing);
 		}
 	}

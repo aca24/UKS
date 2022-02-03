@@ -26,6 +26,8 @@ import com.github.minigithub.service.ProjectService;
 @Service
 public class ProjectServiceImplementation implements ProjectService{
 	
+	
+
 	@Autowired
 	private ProjectRepository projectRepository;
 	
@@ -39,13 +41,22 @@ public class ProjectServiceImplementation implements ProjectService{
 	private UserRepository userRepository;
 	
 	
-	public List<ProjectDTO> findAll() {
-		List<Project> entities = projectRepository.findAll();
+	public Collection<ProjectDTO> findAll() {
+		Collection<Project> entities = projectRepository.findAll();
 
 		return toDtoList(entities);
 	}
+	
+	public Collection<ProjectDTO> findByLeader(String username) {
+		User user = userRepository.findByUsername(username).orElse(null);
+		List<ProjectDTO> retVal = new ArrayList<ProjectDTO>();
+		if (user == null) 
+			return retVal;
+		
+		return toDtoList(user.getProject());
+	}
 
-	private List<ProjectDTO> toDtoList(List<Project> list){
+	private Collection<ProjectDTO> toDtoList(Collection<Project> list){
 		List<ProjectDTO> retVal = new ArrayList<ProjectDTO> ();
 		for(Project entity: list) {
 			ProjectDTO dto = ProjectMapper.toDto(entity);

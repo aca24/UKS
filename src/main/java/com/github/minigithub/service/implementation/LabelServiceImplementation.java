@@ -82,6 +82,7 @@ public class LabelServiceImplementation implements LabelService {
 	public void delete(Long id) {
 		Label existing = labelRepository.findById(id).orElse(null);
 		if(existing != null) {
+			labelRepository.deleteReferences(existing.getId());
 			labelRepository.delete(existing);
 		}
 	}

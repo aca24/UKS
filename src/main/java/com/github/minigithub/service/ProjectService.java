@@ -1,5 +1,6 @@
 package com.github.minigithub.service;
 
+import java.util.Collection;
 import java.util.List;
 import com.github.minigithub.dto.ProjectDTO;
 import com.github.minigithub.model.Project;
@@ -7,7 +8,7 @@ import com.github.minigithub.model.Project;
 
 public interface ProjectService {
 
-	List<ProjectDTO> findAll();
+	Collection<ProjectDTO> findAll();
 	
 	ProjectDTO findById(Long id) ;
 
@@ -17,4 +18,6 @@ public interface ProjectService {
 	ProjectDTO update(ProjectDTO project);
 	
 	void delete(Long id);
+
+	Collection<ProjectDTO> findByLeader(String username);
 }

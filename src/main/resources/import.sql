@@ -31,8 +31,8 @@ INSERT INTO STATE_CHANGES (id, creation_time, task_id, new_state) VALUES (112, '
 INSERT INTO STATE_CHANGES (id, creation_time, task_id, new_state) VALUES (113, '2021-10-24 10:19:15', 123, 'MERGED');
 
 
-INSERT INTO TASKS (id,user_id, milestone_id) VALUES (158,1, 1);
-INSERT INTO TASKS (id,user_id, milestone_id) VALUES (159,1, 1);
+INSERT INTO TASKS (id,user_id, milestone_id) VALUES (158,1, 2);
+INSERT INTO TASKS (id,user_id, milestone_id) VALUES (159,1, 2);
 
 INSERT INTO BRANCHES(id,name) VALUES (1,'branch1');
 

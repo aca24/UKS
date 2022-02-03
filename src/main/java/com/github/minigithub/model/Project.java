@@ -33,13 +33,13 @@ public class Project implements Serializable {
    @ManyToOne
    public GitRepo gitRepo;
 
-   @OneToMany
+   @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
    public Collection<Milestone> milestones;
 
-   @OneToMany
+   @OneToMany(cascade = CascadeType.ALL)
    public Collection<Label> labels;
 
-   @ManyToMany
+   @ManyToMany(cascade = CascadeType.ALL)
    @JoinTable(name = "developers_projects", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
    public Collection<User> developers;
 

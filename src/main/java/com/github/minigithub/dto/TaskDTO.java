@@ -28,7 +28,13 @@ public class TaskDTO {
 			events.add(new EventDTO(event));
 		}
 		this.events = events;
-		this.milestone = new MilestoneDTO(task.getMilestone());
+		if(task.getMilestone() != null) {
+			this.milestone = new MilestoneDTO(task.getMilestone());
+		}
+		else {
+			this.milestone = new MilestoneDTO();
+		}
+		
 		this.creator = new UserDTO(task.getCreator());
 	}
 

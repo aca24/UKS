@@ -46,10 +46,11 @@ public class Task implements Serializable {
    @OneToMany
    public Collection<Event> events;
 
-   @ManyToOne
+   @ManyToOne(cascade = CascadeType.DETACH )
+   @JoinColumn(name = "milestone_id" ,nullable = true, unique = false)
    public Milestone milestone;
 
-   @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+   @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
    @JoinColumn(name = "user_id", nullable = false, unique = false)
    public User creator;
 

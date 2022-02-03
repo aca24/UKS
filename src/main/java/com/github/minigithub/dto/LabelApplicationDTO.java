@@ -1,7 +1,6 @@
 package com.github.minigithub.dto;
 
 import java.util.Date;
-
 import com.github.minigithub.model.LabelApplication;
 
 public class LabelApplicationDTO extends EventDTO {

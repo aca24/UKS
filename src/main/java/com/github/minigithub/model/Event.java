@@ -2,7 +2,6 @@ package com.github.minigithub.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import com.github.minigithub.dto.EventDTO;
 import javax.persistence.*;
 

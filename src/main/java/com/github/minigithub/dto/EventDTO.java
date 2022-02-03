@@ -2,7 +2,6 @@ package com.github.minigithub.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import com.github.minigithub.model.Event;
 import com.github.minigithub.model.Task;
 

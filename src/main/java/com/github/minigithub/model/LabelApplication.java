@@ -3,7 +3,6 @@ package com.github.minigithub.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import com.github.minigithub.dto.LabelApplicationDTO;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity

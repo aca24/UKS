@@ -2,7 +2,6 @@ package com.github.minigithub.model;
 
 import javax.persistence.*;
 import java.util.Date;
-
 import com.github.minigithub.dto.CommentDTO;
 
 @Entity

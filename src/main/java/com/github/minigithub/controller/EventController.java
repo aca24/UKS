@@ -23,7 +23,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping(value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<EventDTO>> getAllEvents() {
         List<Event> events = eventService.findAll();
 
@@ -35,7 +35,7 @@ public class EventController {
         return new ResponseEntity<>(eventsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EventDTO> getEvent(@PathVariable Long id) {
         Event event;
         try {
@@ -51,7 +51,7 @@ public class EventController {
         return new ResponseEntity<>(EventMapper.toDto(event), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         Event event;
         try {
@@ -68,7 +68,7 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/save")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<EventDTO> saveEvent(@RequestBody EventDTO eventDTO) {
         Event event = new Event();
         try {
@@ -80,7 +80,7 @@ public class EventController {
         return new ResponseEntity<>(EventMapper.toDto(event), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "update/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @RequestBody EventDTO eventDTO) {
         Event event;
         try {

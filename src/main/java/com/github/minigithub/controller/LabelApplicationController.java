@@ -23,7 +23,7 @@ public class LabelApplicationController {
         this.labelApplicationService = labelApplicationService;
     }
 
-    @GetMapping(value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<LabelApplicationDTO>> getAllLabelApplications() {
         List<LabelApplication> labelApplications = labelApplicationService.findAll();
 
@@ -35,7 +35,7 @@ public class LabelApplicationController {
         return new ResponseEntity<>(labelApplicationsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<LabelApplicationDTO> getLabelApplication(@PathVariable Long id) {
         LabelApplication labelApplication;
         try {
@@ -51,7 +51,7 @@ public class LabelApplicationController {
         return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteLabelApplication(@PathVariable Long id) {
         LabelApplication labelApplication;
         try {
@@ -68,7 +68,7 @@ public class LabelApplicationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/save")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<LabelApplicationDTO> saveLabelApplication(
             @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication = new LabelApplication();
@@ -81,7 +81,7 @@ public class LabelApplicationController {
         return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "update/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id,
             @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication;

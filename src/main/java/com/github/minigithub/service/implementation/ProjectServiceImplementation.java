@@ -149,6 +149,7 @@ public class ProjectServiceImplementation implements ProjectService{
 		
 		Collection<Milestone> mlist = new ArrayList<Milestone>();
 		Collection<User> userList = new ArrayList<User>();
+		userList.add(leader);
 		Collection<Label> labelList = new ArrayList<Label>();
 		if(project.getMilestones() != null)
 			for (MilestoneDTO dto: project.getMilestones()) {

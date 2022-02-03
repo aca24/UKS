@@ -51,6 +51,22 @@ public class LabelApplicationController {
         return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "search/{id}", method = RequestMethod.GET)
+    public ResponseEntity<LabelApplicationDTO> searchForLabelApplication(@PathVariable Long id) {
+        LabelApplication labelApplication;
+        try {
+            labelApplication = labelApplicationService.findOne(Long.valueOf(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (labelApplication == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteLabelApplication(@PathVariable Long id) {
         LabelApplication labelApplication;

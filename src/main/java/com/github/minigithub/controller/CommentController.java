@@ -50,6 +50,22 @@ public class CommentController {
         return new ResponseEntity<>(CommentMapper.toDto(comment), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "search/{id}", method = RequestMethod.GET)
+    public ResponseEntity<CommentDTO> searchForComment(@PathVariable String id) {
+        Comment comment;
+        try {
+            comment = commentService.findOne(Long.valueOf(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (comment == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(CommentMapper.toDto(comment), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         Comment comment;

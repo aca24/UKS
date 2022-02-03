@@ -16,7 +16,7 @@ public interface LabelApplicationService {
 
     LabelApplication save(LabelApplicationDTO labelApplication);
 
-    LabelApplication update(Long id, LabelApplicationDTO labelApplication);
+    LabelApplication update(LabelApplicationDTO labelApplication);
 
     void remove(Long id);
 }

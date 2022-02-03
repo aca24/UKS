@@ -81,12 +81,12 @@ public class LabelApplicationController {
         return new ResponseEntity<>(LabelApplicationMapper.toDto(labelApplication), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(@PathVariable Long id,
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<LabelApplicationDTO> updateLabelApplication(
             @RequestBody LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication;
         try {
-            labelApplication = labelApplicationService.findOne(id);
+            labelApplication = labelApplicationService.findOne(labelApplicationDTO.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -96,7 +96,7 @@ public class LabelApplicationController {
         }
 
         try {
-            labelApplication = labelApplicationService.update(id, labelApplicationDTO);
+            labelApplication = labelApplicationService.update(labelApplicationDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

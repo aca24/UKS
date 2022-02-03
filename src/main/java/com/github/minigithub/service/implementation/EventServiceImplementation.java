@@ -50,11 +50,11 @@ public class EventServiceImplementation implements EventService {
         return event;
     }
 
-    public Event update(Long id, EventDTO eventDTO) {
+    public Event update(EventDTO eventDTO) {
         Event event = new Event();
 
         try {
-            remove(id);
+            remove(eventDTO.getId());
 
             event.setCreationTime(eventDTO.getCreationTime());
             event.setTask(taskRepository.findOneById(eventDTO.getTask().getId()));

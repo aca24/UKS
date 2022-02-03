@@ -80,11 +80,11 @@ public class EventController {
         return new ResponseEntity<>(EventMapper.toDto(event), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @RequestBody EventDTO eventDTO) {
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<EventDTO> updateEvent(@RequestBody EventDTO eventDTO) {
         Event event;
         try {
-            event = eventService.findOne(id);
+            event = eventService.findOne(eventDTO.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -94,7 +94,7 @@ public class EventController {
         }
 
         try {
-            event = eventService.update(id, eventDTO);
+            event = eventService.update(eventDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

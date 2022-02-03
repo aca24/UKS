@@ -16,7 +16,7 @@ public interface EventService {
 
     Event save(EventDTO event);
 
-    Event update(Long id, EventDTO event);
+    Event update(EventDTO event);
 
     void remove(Long id);
 }

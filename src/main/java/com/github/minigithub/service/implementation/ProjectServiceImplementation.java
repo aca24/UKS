@@ -67,54 +67,25 @@ public class ProjectServiceImplementation implements ProjectService{
 		
 	}
 
+
+	public boolean removeDeveloper(Long id) {
+		
+		try {
+			this.projectRepository.removeDeveloper(id);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+		
+	}
+
 	public ProjectDTO findById(Long id) {
 		Project entity = projectRepository.findOneById(id);
 		if (entity == null)
 			return null;
 		
 		return ProjectMapper.toDto(entity);
-	}
-
-	//TO DO 
-	public ProjectDTO create(ProjectDTO project) {
-		
-		System.out.println("********** CREATE NEW PROJECT");
-		Project newProject = new Project();
-		newProject.setGitRepo(GitRepoMapper.toEntity(project.getGitRepo()));
-		newProject.setTitle(project.getTitle());
-		newProject.setLeader(new User(project.getLeader()));
-		
-		Collection<Milestone> mlist = new ArrayList<Milestone>();
-		Collection<User> userList = new ArrayList<User>();
-		Collection<Label> labelList = new ArrayList<Label>();
-		if(project.getMilestones() != null)
-			for (MilestoneDTO dto: project.getMilestones()) {
-				System.out.println(dto.getId() + " milestpone id");
-				mlist.add(milestoneRepository.findById(dto.getId()).orElse(null));
-				
-			}
-		if(project.getDevelopers() != null)
-			for (UserDTO udto: project.getDevelopers()) {
-				userList.add(userRepository.findById(udto.getId()).orElse(null));
-				
-			}
-		if(project.getLabesls() != null)
-			for (LabelDTO ldto: project.getLabesls()) {
-				labelList.add(labelRepository.findById(ldto.getId()).orElse(null));
-			}
-		
-		newProject.setLabel(labelList);
-		newProject.setDevelopers(userList);
-		newProject.setMilestone(mlist);
-
-		try {
-			newProject = projectRepository.save(newProject);
-		}
-		catch(Exception e){
-			return null;
-		}
-		
-		return ProjectMapper.toDto(newProject);
 	}
 
 	public ProjectDTO update(ProjectDTO project) {
@@ -165,6 +136,50 @@ public class ProjectServiceImplementation implements ProjectService{
 		if(existing != null) {
 			projectRepository.delete(existing);
 		}
+	}
+
+	public ProjectDTO create(ProjectDTO project, String username) {
+		System.out.println("********** CREATE NEW PROJECT");
+		Project newProject = new Project();
+		User leader = userRepository.findByUsername(username).orElse(null);
+		newProject.setLeader(leader);
+		newProject.setGitRepo(GitRepoMapper.toEntity(project.getGitRepo()));
+		newProject.setTitle(project.getTitle());
+		
+		
+		Collection<Milestone> mlist = new ArrayList<Milestone>();
+		Collection<User> userList = new ArrayList<User>();
+		Collection<Label> labelList = new ArrayList<Label>();
+		if(project.getMilestones() != null)
+			for (MilestoneDTO dto: project.getMilestones()) {
+				System.out.println(dto.getId() + " milestpone id");
+				mlist.add(milestoneRepository.findById(dto.getId()).orElse(null));
+				
+			}
+		if(project.getDevelopers() != null)
+			for (UserDTO udto: project.getDevelopers()) {
+				userList.add(userRepository.findById(udto.getId()).orElse(null));
+				
+			}
+		if(project.getLabesls() != null)
+			for (LabelDTO ldto: project.getLabesls()) {
+				labelList.add(labelRepository.findById(ldto.getId()).orElse(null));
+			}
+		
+		newProject.setLabel(labelList);
+		newProject.setDevelopers(userList);
+		newProject.setMilestone(mlist);
+
+		try {
+			System.out.println("Tryig");
+			newProject = projectRepository.save(newProject);
+		}
+		catch(Exception e){
+			System.out.println(e);
+			return null;
+		}
+		
+		return ProjectMapper.toDto(newProject);
 	}
 
 }

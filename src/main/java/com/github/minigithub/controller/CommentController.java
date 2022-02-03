@@ -93,7 +93,7 @@ public class CommentController {
         }
 
         try {
-            comment = commentService.update(commentDTO.getId(), commentDTO);
+            comment = commentService.update(commentDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

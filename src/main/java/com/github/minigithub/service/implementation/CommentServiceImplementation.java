@@ -51,11 +51,11 @@ public class CommentServiceImplementation implements CommentService {
         return comment;
     }
 
-    public Comment update(Long id, CommentDTO commentDTO) {
+    public Comment update(CommentDTO commentDTO) {
         Comment comment = new Comment();
 
         try {
-            remove(id);
+            remove(commentDTO.getId());
 
             comment.setContent(commentDTO.getContent());
             comment.setCreationTime(commentDTO.getCreationTime());

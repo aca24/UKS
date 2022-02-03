@@ -16,8 +16,8 @@ INSERT INTO TASKS (id, user_id, milestone_id) VALUES (122, 1, 1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (123, 1, 1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (124, 1, 1);
 
-INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (1, '2021-07-03 00:00:00', 121, 'nesto');
-INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (2, '2021-11-03 11:11:11', 122, 'nestodrugo');
+INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (701, '2021-07-03 00:00:00', 121, 'nesto');
+INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (702, '2021-11-03 11:11:11', 122, 'nestodrugo');
 
 INSERT INTO LABEL_APPLICATIONS (id, creation_time, task_id) VALUES (71, '2021-07-03 00:00:00', 121);
 INSERT INTO LABEL_APPLICATIONS (id, creation_time, task_id) VALUES (72, '2021-11-03 11:11:11', 121);

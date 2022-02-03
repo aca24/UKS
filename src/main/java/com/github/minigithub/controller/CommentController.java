@@ -22,7 +22,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping(value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CommentDTO>> getAllComments() {
         List<Comment> comments = commentService.findAll();
 
@@ -34,7 +34,7 @@ public class CommentController {
         return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<CommentDTO> getComment(@PathVariable Long id) {
         Comment comment;
         try {
@@ -50,7 +50,7 @@ public class CommentController {
         return new ResponseEntity<>(CommentMapper.toDto(comment), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         Comment comment;
         try {
@@ -67,7 +67,7 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/save")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<CommentDTO> saveComment(@RequestBody CommentDTO commentDTO) {
         Comment comment = new Comment();
         try {
@@ -79,7 +79,7 @@ public class CommentController {
         return new ResponseEntity<>(CommentMapper.toDto(comment), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "update/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
         Comment comment;
         try {

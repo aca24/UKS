@@ -79,11 +79,11 @@ public class CommentController {
         return new ResponseEntity<>(CommentMapper.toDto(comment), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<CommentDTO> updateComment(@RequestBody CommentDTO commentDTO) {
         Comment comment;
         try {
-            comment = commentService.findOne(id);
+            comment = commentService.findOne(commentDTO.getId());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -93,7 +93,7 @@ public class CommentController {
         }
 
         try {
-            comment = commentService.update(id, commentDTO);
+            comment = commentService.update(commentDTO.getId(), commentDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

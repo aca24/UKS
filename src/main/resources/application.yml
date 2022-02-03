@@ -1,4 +1,13 @@
 spring:
-  profiles:
-    active:
-      '@profileActive@'
+  profile:
+    active: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/minigithub
+    username: postgres
+    password: root
+  jpa:
+    hibernate.ddl-auto: create-drop
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  main:
+    allow-circular-references: true

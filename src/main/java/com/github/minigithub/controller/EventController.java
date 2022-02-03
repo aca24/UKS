@@ -51,6 +51,22 @@ public class EventController {
         return new ResponseEntity<>(EventMapper.toDto(event), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "search/{id}", method = RequestMethod.GET)
+    public ResponseEntity<EventDTO> searchForEvent(@PathVariable String id) {
+        Event event;
+        try {
+            event = eventService.findOne(Long.valueOf(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (event == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(EventMapper.toDto(event), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         Event event;

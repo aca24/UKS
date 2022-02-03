@@ -55,7 +55,7 @@ public class LabelApplicationServiceImplementation implements LabelApplicationSe
         return labelApplication;
     }
 
-    public LabelApplication update(Long id, LabelApplicationDTO labelApplicationDTO) {
+    public LabelApplication update(LabelApplicationDTO labelApplicationDTO) {
         LabelApplication labelApplication = new LabelApplication();
 
         try {
@@ -63,7 +63,7 @@ public class LabelApplicationServiceImplementation implements LabelApplicationSe
             List<Label> foundLabelApplications = new ArrayList<Label>();
             for (Label label : labelApplications) {
                 if (label.labelApplication != null) {
-                    if (label.labelApplication.getId() == id) {
+                    if (label.labelApplication.getId() == labelApplicationDTO.getId()) {
                         foundLabelApplications.add(label);
                         label.setLabelApplication(null);
                         labelRepository.save(label);
@@ -71,7 +71,7 @@ public class LabelApplicationServiceImplementation implements LabelApplicationSe
                 }
             }
 
-            labelApplicationRepository.deleteById(id);
+            labelApplicationRepository.deleteById(labelApplicationDTO.getId());
 
             labelApplication.setCreationTime(labelApplicationDTO.getCreationTime());
             labelApplication.setTask(taskRepository.findOneById(labelApplicationDTO.getTask().getId()));

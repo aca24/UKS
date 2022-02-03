@@ -12,12 +12,14 @@ public interface ProjectService {
 	
 	ProjectDTO findById(Long id) ;
 
-	//TO DO 
-	ProjectDTO create(ProjectDTO project);
+
+	ProjectDTO create(ProjectDTO project, String username);
 
 	ProjectDTO update(ProjectDTO project);
 	
 	void delete(Long id);
 
 	Collection<ProjectDTO> findByLeader(String username);
+
+	boolean removeDeveloper(Long id);
 }

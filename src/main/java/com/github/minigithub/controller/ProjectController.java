@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.minigithub.dto.ProjectDTO;
+import com.github.minigithub.dto.UserDTO;
 import com.github.minigithub.model.User;
 import com.github.minigithub.service.ProjectService;
 
@@ -54,7 +55,9 @@ public class ProjectController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ProjectDTO> addNew(@RequestBody ProjectDTO project){
-		ProjectDTO created = projectService.create(project);
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = ((User) currentUser.getPrincipal()).getEmail();
+		ProjectDTO created = projectService.create(project, username);
 		if(created == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -67,6 +70,15 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(updated, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/remove-developer", method = RequestMethod.PUT)
+	public ResponseEntity<UserDTO> removeDeveloper(@RequestBody UserDTO user){
+		boolean removed = projectService.removeDeveloper(user.getId());
+		if(!removed) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	

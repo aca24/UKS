@@ -4,6 +4,9 @@ INSERT INTO ROLES (name) VALUES ('ROLE_ADMIN');
 
 
 INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('asdf', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'nestodrugo', 'nestodrugo', 1);
+INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('mile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Milivoje', 'Milic', 1);
+INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('sara', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Sara', 'Jovanovic', 1);
+INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('cile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Svettozar', 'Miletic', 1);
 
 INSERT INTO MILESTONES ( description, due_date, state, title) VALUES ( 'nesto', '2021-07-03 00:00:00', 'MERGED','nesto');
 INSERT INTO MILESTONES (description, due_date, state, title) VALUES ('nestodrugo', '2021-11-03 00:00:00', 'CLOSED','nestodrugo');

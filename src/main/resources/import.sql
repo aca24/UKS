@@ -3,18 +3,22 @@ INSERT INTO ROLES (name) VALUES ('ROLE_ADMIN');
 
 
 
-INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('asdf', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'nestodrugo', 'nestodrugo', 1);
-INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('mile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Milivoje', 'Milic', 1);
-INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('sara', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Sara', 'Jovanovic', 1);
-INSERT INTO USERS (username, password, first_name, last_name, role_id) VALUES ('cile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Svettozar', 'Miletic', 1);
+INSERT INTO USERS (active, username, password, first_name, last_name, role_id) VALUES (true, 'asdf', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Ime', 'Prezime', 1);
+INSERT INTO USERS (active, username, password, first_name, last_name, role_id) VALUES (true, 'cile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Svetozar', 'Miletic', 1);
+INSERT INTO USERS (active, username, password, first_name, last_name, role_id) VALUES (true, 'mile', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Milivoje', 'Milic', 1);
+INSERT INTO USERS (active, username, password, first_name, last_name, role_id) VALUES (true, 'tamy', '$2a$10$RVzuprKddsjdq6P8QWmqF.sCj2uYPIUlbFVB.b7tJ9RdFNOOBNoXO', 'Tasa', 'Tasha', 1);
 
-INSERT INTO MILESTONES ( description, due_date, state, title) VALUES ( 'nesto', '2021-07-03 00:00:00', 'MERGED','nesto');
-INSERT INTO MILESTONES (description, due_date, state, title) VALUES ('nestodrugo', '2021-11-03 00:00:00', 'CLOSED','nestodrugo');
+
+INSERT INTO MILESTONES (description, due_date, state, title) VALUES ( 'nesto', '2021-07-03 00:00:00', 'MERGED','nesto');
+INSERT INTO MILESTONES ( description, due_date, state, title) VALUES ('nestodrugo', '2021-11-03 00:00:00', 'CLOSED','nestodrugo');
 
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (121, 1, 1);
-INSERT INTO TASKS (id, user_id, milestone_id) VALUES (122, 1, 1);
-INSERT INTO TASKS (id, user_id, milestone_id) VALUES (123, 1, 1);
+INSERT INTO TASKS (id, user_id, milestone_id) VALUES (122, 1,1);
+INSERT INTO TASKS (id, user_id, milestone_id) VALUES (123, 1,1);
 INSERT INTO TASKS (id, user_id, milestone_id) VALUES (124, 1, 1);
+
+INSERT INTO EVENTS (id, creation_time, task_id) VALUES (101, '2021-07-03 00:00:00', 121);
+INSERT INTO EVENTS (id, creation_time, task_id) VALUES (102, '2021-11-03 11:11:11', 122);
 
 INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (701, '2021-07-03 00:00:00', 121, 'nesto');
 INSERT INTO COMMENTS (id, creation_time, task_id, content) VALUES (702, '2021-11-03 11:11:11', 122, 'nestodrugo');
@@ -46,14 +50,10 @@ INSERT INTO GIT_REPOS(id,name) VALUES (123, 'gitRepo1');
 
 INSERT INTO GIT_REPOS_BRANCHES(git_repo_id, branches_id) VALUES (123,1);
 
-INSERT INTO PROJECTS(title,git_repo_id,leader_id) VALUES ('proj1',123,1);
+INSERT INTO PROJECTS(id,title,git_repo_id,leader_id) VALUES (45,'proj1',123,1);
 
-INSERT INTO PROJECTS_MILESTONES (project_id, milestones_id) VALUES (1, 1);
-INSERT INTO PROJECTS_MILESTONES (project_id, milestones_id) VALUES (1, 2);
+INSERT INTO GIT_REPOS_PROJECTS(git_repo_id, projects_id) VALUES (123,45);
 
-INSERT INTO PROJECTS_LABELS (project_id, labels_id) VALUES (1,140);
-INSERT INTO PROJECTS_LABELS (project_id, labels_id) VALUES (1,141);
+INSERT INTO HISTORY (comment) VALUES ('milestone1 title changed from nesto to nestodrugo');
 
-INSERT INTO DEVELOPERS_PROJECTS (project_id, user_id) VALUES (1, 1);
 
-INSERT INTO GIT_REPOS_PROJECTS(git_repo_id, projects_id) VALUES (123,1);

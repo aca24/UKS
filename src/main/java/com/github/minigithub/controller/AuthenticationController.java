@@ -63,7 +63,10 @@ public class AuthenticationController {
 
         User user = (User) authentication.getPrincipal();
         User dbUser = userRepository.findByUsername(user.getUsername()).orElse(null);
-        
+        if(!dbUser.isActive()) {
+        	
+        	 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         String jwt = tokenUtils.generateToken(user); // prijavljujemo se na sistem sa email adresom
         int expiresIn = tokenUtils.getExpiredIn();
                 

@@ -1,5 +1,6 @@
 package com.github.minigithub.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class UserService {
     public UserDTO insertUser(UserDTO userDTO) {
         User user = new User(userDTO);
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setActive(true);
         Role role = roleService.findById(1l).get();
         user.setRole(role);
 
@@ -72,4 +74,55 @@ public class UserService {
 
         
     }
+
+	public UserDTO editUser(UserDTO userDTO) {
+		
+		User existing = userRepositry.findById(userDTO.getId()).orElse(null);
+		if(existing == null)
+			return null;
+		existing.setFirstName(userDTO.getFirstName());
+		existing.setLastName(userDTO.getLastName());
+		existing.setUsername(userDTO.getUsername());
+		existing.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		try {
+			userRepositry.save(existing);
+
+            return userDTO;
+        }
+        catch (Exception e) {
+        	return null;
+        }
+		
+		
+	}
+
+	public UserDTO deactivate(UserDTO userDTO) {
+		User existing = userRepositry.findById(userDTO.getId()).orElse(null);
+		if(existing == null)
+			return null;
+		existing.setActive(false);
+		try {
+			userRepositry.save(existing);
+
+            return userDTO;
+        }
+        catch (Exception e) {
+        	return null;
+        }
+		
+	}
+
+	public List<UserDTO> searchByUsername(String username) {
+		List<User> found = userRepositry.searchByUsername(username.toUpperCase());
+		
+		return toDtoList(found);
+	}
+	
+	public List<UserDTO> toDtoList(List<User> users){
+		List<UserDTO> retVal = new ArrayList<UserDTO>();
+		for (User u: users) {
+			retVal.add(new UserDTO(u));
+		}
+		return retVal;
+	}
 }

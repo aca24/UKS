@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.github.minigithub.dto.BranchDTO;
+import com.github.minigithub.mapper.BranchMapper;
 import com.github.minigithub.model.Branch;
 import com.github.minigithub.repository.BranchRepository;
 
@@ -28,6 +29,15 @@ public class BranchService {
         return branchRepository.findByName(name);
     }
 
+    public BranchDTO add(BranchDTO branchDTO) {
+        BranchMapper mapper = new BranchMapper();
+        Branch branch = mapper.toEntity(branchDTO);
+
+        branchRepository.save(branch);
+
+        return new BranchDTO(branch);
+    }
+
     public BranchDTO update(Long id, BranchDTO branchDTO) throws Exception {
         Optional<Branch> branchOrEmpty = findById(id);
 
@@ -44,5 +54,15 @@ public class BranchService {
         branchRepository.save(branchOrEmpty.get());
 
         return branchDTO;
+    }
+
+    public void delete(Long id) {
+        Optional<Branch> branchOrEmpty = findById(id);
+
+        if (branchOrEmpty.isEmpty()) {
+            return;
+        }
+
+        branchRepository.delete(branchOrEmpty.get());
     }
 }

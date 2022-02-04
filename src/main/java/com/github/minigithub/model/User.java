@@ -61,8 +61,18 @@ public class User implements UserDetails, Serializable {
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
 
+   @Column(name = "active", unique = false, nullable = false)
+   private boolean active;
    
-   public User(Long id, String username, String password, String firstName, String lastName) {
+   public boolean isActive() {
+	return active;
+   }
+
+   public void setActive(boolean active) {
+	   this.active = active;
+   }
+
+public User(Long id, String username, String password, String firstName, String lastName) {
       super();
       this.id = id;
       this.username = username;
@@ -309,7 +319,7 @@ public class User implements UserDetails, Serializable {
    @Override
    public boolean isAccountNonExpired() {
       // TODO Auto-generated method stub
-      return true;
+      return this.active;
    }
 
    @Override
@@ -327,6 +337,6 @@ public class User implements UserDetails, Serializable {
    @Override
    public boolean isEnabled() {
       // TODO Auto-generated method stub
-      return true;
+      return this.active;
    }
 }

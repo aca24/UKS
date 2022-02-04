@@ -18,6 +18,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -25,10 +30,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-      		<groupId>org.springframework.boot</groupId>
-      		<artifactId>spring-boot-starter-data-jpa</artifactId>
-  		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -65,6 +66,24 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>minigithub-docker</finalName>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>staging</id>
+			<properties>
+				<build.profile.id>staging</build.profile.id>
+				<profileActive>staging</profileActive>
+			</properties>
+		</profile>
+		<profile>
+			<id>build</id>
+			<properties>
+				<build.profile.id>build</build.profile.id>
+				<profileActive>build</profileActive>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>

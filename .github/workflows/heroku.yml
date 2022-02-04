@@ -1,0 +1,24 @@
+# This workflow will deploy spring boot application to heroku
+
+name: Deploy to heroku
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          # This will be used for authentication. You can find it in your heroku homepage account settings
+          heroku_api_key: 6fa82e5d-f049-4b86-83c3-6d43a5a92c54
+          # Email that you use with heroku
+          heroku_email: dadopolumenta1998@gmail.com
+          # The appname to use for deploying/updating
+          heroku_app_name: minigithub
+          # An optional buildpack to use when creating the heroku application

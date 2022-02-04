@@ -21,11 +21,11 @@ public class StateChange extends Event {
    public StateChange() {
    }
 
-   public StateChange(Long id, LocalDateTime dateTime, Task task) {
+   public StateChange(Long id, Date dateTime, Task task) {
       super(id, dateTime, task);
    }
 
-   public StateChange(Long id, LocalDateTime dateTime, Task task, State newState) {
+   public StateChange(Long id, Date dateTime, Task task, State newState) {
       super(id, dateTime, task);
       this.newState = newState;
    }

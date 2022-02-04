@@ -1,6 +1,7 @@
 package com.github.minigithub.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -60,7 +61,18 @@ public class User implements UserDetails, Serializable {
    @OneToMany(cascade = CascadeType.ALL)
    public Collection<Task> tasks;
 
-   public User(Long id, String username, String password, String firstName, String lastName) {
+   @Column(name = "active", unique = false, nullable = false)
+   private boolean active;
+   
+   public boolean isActive() {
+	return active;
+   }
+
+   public void setActive(boolean active) {
+	   this.active = active;
+   }
+
+public User(Long id, String username, String password, String firstName, String lastName) {
       super();
       this.id = id;
       this.username = username;
@@ -89,7 +101,44 @@ public class User implements UserDetails, Serializable {
       this.id = id;
    }
 
-   public String getFirstName() {
+   
+   public Collection<Project> getProjects() {
+	return projects;
+}
+
+	public void setProjects(Collection<Project> projects) {
+		this.projects = projects;
+	}
+	
+	public Collection<Commit> getCommits() {
+		return commits;
+	}
+	
+	public void setCommits(Collection<Commit> commits) {
+		this.commits = commits;
+	}
+	
+	public Collection<Task> getTasks() {
+		return tasks;
+	}
+	
+	public void setTasks(Collection<Task> tasks) {
+		this.tasks = tasks;
+	}
+	
+	public String getEmail() {
+		return this.username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getFirstName() {
 		return firstName;
 	}
 
@@ -262,30 +311,32 @@ public class User implements UserDetails, Serializable {
    @Override
    public Collection<? extends GrantedAuthority> getAuthorities() {
       // TODO Auto-generated method stub
-      return null;
+	   Collection<Role> retVal = new ArrayList<Role>();
+	   retVal.add(this.getRole());
+	   return retVal;
    }
 
    @Override
    public boolean isAccountNonExpired() {
       // TODO Auto-generated method stub
-      return false;
+      return this.active;
    }
 
    @Override
    public boolean isAccountNonLocked() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 
    @Override
    public boolean isCredentialsNonExpired() {
       // TODO Auto-generated method stub
-      return false;
+      return true;
    }
 
    @Override
    public boolean isEnabled() {
       // TODO Auto-generated method stub
-      return false;
+      return this.active;
    }
 }

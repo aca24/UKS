@@ -1,12 +1,15 @@
 package com.github.minigithub.controller;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.minigithub.dto.ProjectDTO;
+import com.github.minigithub.dto.UserDTO;
+import com.github.minigithub.model.User;
 import com.github.minigithub.service.ProjectService;
 
 @RestController
@@ -24,8 +29,17 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<ProjectDTO>> getAll(){
-		List<ProjectDTO> projects = projectService.findAll();
+	public ResponseEntity<Collection<ProjectDTO>> getAll(){
+		Collection<ProjectDTO> projects = projectService.findAll();
+		
+		return new ResponseEntity<>(projects, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/my", method = RequestMethod.GET)
+	public ResponseEntity<Collection<ProjectDTO>> getMyProjects(){
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = ((User) currentUser.getPrincipal()).getEmail();
+        Collection<ProjectDTO> projects = projectService.findByLeader(username);
 		
 		return new ResponseEntity<>(projects, HttpStatus.OK);
 	}
@@ -41,7 +55,9 @@ public class ProjectController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ProjectDTO> addNew(@RequestBody ProjectDTO project){
-		ProjectDTO created = projectService.create(project);
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = ((User) currentUser.getPrincipal()).getEmail();
+		ProjectDTO created = projectService.create(project, username);
 		if(created == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -54,6 +70,15 @@ public class ProjectController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(updated, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/remove-developer", method = RequestMethod.PUT)
+	public ResponseEntity<UserDTO> removeDeveloper(@RequestBody UserDTO user){
+		boolean removed = projectService.removeDeveloper(user.getId());
+		if(!removed) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	

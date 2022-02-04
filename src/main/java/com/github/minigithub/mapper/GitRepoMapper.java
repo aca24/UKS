@@ -11,9 +11,10 @@ import com.github.minigithub.model.Branch;
 import com.github.minigithub.model.GitRepo;
 import com.github.minigithub.model.Project;
 
-public class GitRepoMapper implements MapperInterface<GitRepo, GitRepoDTO> {
+public class GitRepoMapper {
 	
 	@Autowired
+	static
 	BranchMapper branchMapper;
 	
 	
@@ -23,8 +24,7 @@ public class GitRepoMapper implements MapperInterface<GitRepo, GitRepoDTO> {
 		branchMapper = new BranchMapper();
 	}
 
-	@Override
-	public GitRepo toEntity(GitRepoDTO dto) {
+	public static GitRepo toEntity(GitRepoDTO dto) {
 		ArrayList<Project> projects = new ArrayList<>();
 		if(dto.getProjects() != null) {
 			for (ProjectDTO projectDTO : dto.getProjects()) {
@@ -48,8 +48,8 @@ public class GitRepoMapper implements MapperInterface<GitRepo, GitRepoDTO> {
 		return gr;
 	}
 
-	@Override
-	public GitRepoDTO toDto(GitRepo entity) {
+
+	public static GitRepoDTO toDto(GitRepo entity) {
 		ArrayList<ProjectDTO> projectsDTO = new ArrayList<>();
 		for (Project project: entity.getProjects()) {
 			projectsDTO.add(ProjectMapper.toDto(project));

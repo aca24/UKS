@@ -1,9 +1,11 @@
 package com.github.minigithub.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -44,10 +46,11 @@ public class Task implements Serializable {
    @OneToMany
    public Collection<Event> events;
 
-   @ManyToOne
+   @ManyToOne(cascade = CascadeType.DETACH )
+   @JoinColumn(name = "milestone_id" ,nullable = true, unique = false)
    public Milestone milestone;
 
-   @ManyToOne
+   @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
    @JoinColumn(name = "user_id", nullable = false, unique = false)
    public User creator;
 

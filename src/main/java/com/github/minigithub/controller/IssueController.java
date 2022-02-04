@@ -1,6 +1,7 @@
 package com.github.minigithub.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.minigithub.dto.IssueDTO;
-import com.github.minigithub.dto.PullRequestDTO;
 import com.github.minigithub.mapper.IssueMapper;
 import com.github.minigithub.model.Issue;
-import com.github.minigithub.model.PullRequest;
 import com.github.minigithub.service.IssueService;
 
 @RestController
@@ -59,13 +58,13 @@ public class IssueController {
 				
 	}
 	
-	@PostMapping
-	public ResponseEntity<IssueDTO> createIssue( @RequestBody IssueDTO issueDTO){
-		Issue issue = issueService.create(issueMapper.toEntity(issueDTO));
+	@PostMapping(value = "/{id}")
+	public ResponseEntity<IssueDTO> createIssue( @RequestBody IssueDTO issueDTO,@PathVariable Long id){
+		Issue issue = issueService.create(issueMapper.toEntity(issueDTO), id);
 		if(issue == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+		issue.setDateCreated(new Date());
 		return new ResponseEntity<>(issueMapper.toDto(issue), HttpStatus.CREATED);
 	}
 	
